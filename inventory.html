@@ -77,7 +77,11 @@
     padding: 0 32px;
     border-bottom: 1px solid var(--border);
     background: var(--bg);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
   }
+  .nav-tabs::-webkit-scrollbar { display: none; }
 
   .nav-tab {
     padding: 14px 24px;
@@ -85,6 +89,7 @@
     letter-spacing: 0.15em;
     color: var(--text-dim);
     cursor: pointer;
+    flex-shrink: 0;
     border-bottom: 2px solid transparent;
     transition: all 0.2s;
     white-space: nowrap;
@@ -563,12 +568,18 @@
   .kpi-card { min-width: 0; overflow: hidden; }
   .kpi-value { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-  /* Table overflow fix */
-  .table-section { overflow: hidden; }
+  /* Table overflow fix: scroll horizontally instead of clipping content off-screen */
+  .table-section { overflow-x: auto; overflow-y: hidden; -webkit-overflow-scrolling: touch; }
+  .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   table { table-layout: auto; }
   td, th { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   /* Name column: allow wrapping but not char-by-char break */
   td:first-child { white-space: normal; word-break: keep-all; overflow-wrap: anywhere; min-width: 120px; }
+
+  /* iOS/iPadOS Safari zooms the page when a focused input's font-size is under 16px */
+  @media (hover: none) and (pointer: coarse) {
+    input, select, textarea { font-size: 16px !important; }
+  }
 
   /* API KEY INPUT */
   .api-key-bar {
@@ -630,6 +641,7 @@
     }
     .btn, #save-indicator { display: none !important; }
     a { color: inherit !important; }
+    .table-section, .table-scroll { overflow: visible !important; }
   }
 </style>
 </head>
@@ -1006,6 +1018,7 @@
       <!-- 仕入れ合計（カテゴリ別） -->
       <div style="margin-bottom:28px;">
         <div style="font-size:11px;letter-spacing:0.2em;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);">仕入れ合計 — カテゴリ別</div>
+        <div class="table-scroll">
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
@@ -1018,11 +1031,13 @@
           <tbody id="report-category-table"></tbody>
           <tfoot id="report-category-total"></tfoot>
         </table>
+        </div>
       </div>
 
       <!-- 仕入先別 -->
       <div style="margin-bottom:28px;">
         <div style="font-size:11px;letter-spacing:0.2em;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);">仕入れ合計 — 仕入先別</div>
+        <div class="table-scroll">
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
@@ -1033,11 +1048,13 @@
           </thead>
           <tbody id="report-supplier-table"></tbody>
         </table>
+        </div>
       </div>
 
       <!-- 在庫状況 -->
       <div style="margin-bottom:28px;">
         <div style="font-size:11px;letter-spacing:0.2em;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);">現在庫状況</div>
+        <div class="table-scroll">
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
@@ -1050,11 +1067,13 @@
           </thead>
           <tbody id="report-stock-table"></tbody>
         </table>
+        </div>
       </div>
 
       <!-- 入庫明細 -->
       <div>
         <div style="font-size:11px;letter-spacing:0.2em;color:var(--gold);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);">入庫明細</div>
+        <div class="table-scroll">
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid var(--border);">
@@ -1068,6 +1087,7 @@
           </thead>
           <tbody id="report-delivery-table"></tbody>
         </table>
+        </div>
       </div>
 
       <!-- Footer -->
