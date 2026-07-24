@@ -579,6 +579,22 @@ textarea{resize:none;line-height:1.6}
       </div>
     </div>
 
+    <div class="fld" id="rebook-tpl-wrap" style="display:none">
+      <label class="lb">定型文から選ぶ（メニュー別・すぐ配信できるテンプレート）</label>
+      <div class="info-box">メニューごとの推奨サイクルに合わせた<em>配信タイミングの目安</em>付き。タップすると本文欄にそのまま読み込まれ、名前欄の内容も反映されます。編集・コピーしてすぐ配信できます。</div>
+      <div class="title-list" id="rebook-tpl-list">
+        <div class="t-opt" onclick="useRepeatTemplate('カット')"><div class="t-tx">カット</div><div class="t-len">4〜6週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('透明感カラー')"><div class="t-tx">透明感カラー</div><div class="t-len">6〜8週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('高濃度水素カラー')"><div class="t-tx">高濃度水素カラー</div><div class="t-len">6〜8週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('カット＋カラー')"><div class="t-tx">カット＋カラー</div><div class="t-len">6〜8週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('髪質改善トリートメント')"><div class="t-tx">髪質改善トリートメント</div><div class="t-len">3〜4週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('縮毛矯正')"><div class="t-tx">縮毛矯正</div><div class="t-len">12〜16週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('oggi otto')"><div class="t-tx">oggi otto</div><div class="t-len">4〜6週間後</div></div>
+        <div class="t-opt" onclick="useRepeatTemplate('パーマ')"><div class="t-tx">パーマ</div><div class="t-len">8〜12週間後</div></div>
+      </div>
+      <div class="dvd"></div>
+    </div>
+
     <div class="fld">
       <label class="lb">お客様のお名前（任意）</label>
       <input type="text" id="msg-name" placeholder="例：田中様">
@@ -708,7 +724,8 @@ textarea{resize:none;line-height:1.6}
     <div class="tip"><div class="tip-ttl">岡山×NEUTRIZEの勝ちキーワード</div><div class="tip-body"><span class="chip">岡山 美容室 透明感</span><span class="chip">岡山 縮毛矯正 上手い</span><span class="chip">丸の内 美容室 おすすめ</span><span class="chip">岡山 髪質改善</span><span class="chip">oggi otto 岡山</span><span class="chip">岡山 くせ毛 美容室</span></div></div>
     <div class="tip"><div class="tip-ttl">理想の投稿サイクル</div><div class="tip-body">週2〜3本が理想。スタイル紹介2本＋SEOコラム1本を基本に。月1回は2,000字以上の解説記事を入れるとドメイン評価が上がる。</div></div>
     <div class="tip"><div class="tip-ttl">CVRを上げる締め文のコツ</div><div class="tip-body">現在42.4% → エリア平均51.9%の差を埋めるには「締め」の精度が鍵。価格・所要時間を明記した上でHPBへの直リンクを入れること。</div></div>
-    <div class="tip"><div class="tip-ttl">HPBメッセージ機能の活用法</div><div class="tip-body">来店御礼は当日〜翌日中に送るのが理想。次回提案は施術サイクル（カラーなら1.5〜2ヶ月後）を逆算して送るとリピート率が上がる。ご無沙汰フォローは半年以上来店のない方に「お変わりないですか」の一言を添えて送ると再来店のきっかけになりやすい。名前を入れるだけで開封率・返信率が大きく変わる。</div></div>
+    <div class="tip"><div class="tip-ttl">HPBメッセージ機能の活用法</div><div class="tip-body">来店御礼は当日〜翌日中に送るのが理想。ご無沙汰フォローは半年以上来店のない方に「お変わりないですか」の一言を添えて送ると再来店のきっかけになりやすい。名前を入れるだけで開封率・返信率が大きく変わる。</div></div>
+    <div class="tip"><div class="tip-ttl">メニュー別・次回提案メッセージの送信タイミング</div><div class="tip-body"><span class="chip">カット 4〜6週間後</span><span class="chip">透明感カラー 6〜8週間後</span><span class="chip">高濃度水素カラー 6〜8週間後</span><span class="chip">カット＋カラー 6〜8週間後</span><span class="chip">髪質改善トリートメント 3〜4週間後</span><span class="chip">oggi otto 4〜6週間後</span><span class="chip">パーマ 8〜12週間後</span><span class="chip">縮毛矯正 12〜16週間後</span><br><br>「メッセージ」タブ→「次回提案」を選ぶと、メニュー別にそのまま配信できる定型文が選べます。前回来店日から上記の目安で配信予約するとリピート率が上がりやすい。</div></div>
     <div class="sb"></div>
   </div>
 </div>
@@ -771,6 +788,34 @@ const HPB_REV_URL = 'https://beauty.hotpepper.jp/slnH000183650/';
 const HPB_MSG_URL = 'https://beauty.hotpepper.jp/slnH000183650/';
 const TYPE_LBL = {'how-to':'Howto記事','column':'お悩みコラム','local':'エリア集客','menu':'メニュー紹介','season':'季節トレンド','faq':'FAQ記事'};
 const MSG_TYPE_LBL = {thanks:'来店御礼',reminder:'来店リマインド',rebook:'次回提案',anniversary:'誕生日・記念日',winback:'ご無沙汰フォロー',cancel:'キャンセル後フォロー'};
+
+// メニュー別リピート促進テンプレート（実配信用の定型文・送信タイミング目安つき）
+const REPEAT_TPL = {
+  'カット': { cycle: '4〜6週間後（1〜1.5ヶ月）', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。前回のカットから1ヶ月ほど経ち、そろそろ毛先の広がりや形の変化が気になる頃ではないでしょうか。清潔感のあるシルエットをキープするために、そろそろのご来店がおすすめです。ご都合の良い日で構いませんので、またお待ちしております。
+
+NEUTRIZE` },
+  '透明感カラー': { cycle: '6〜8週間後（1.5〜2ヶ月）', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。前回のカラーから1ヶ月半ほど経ち、根元の伸びや色の抜けが気になり始める頃かと思います。透明感のある仕上がりを保つために、そろそろのカラーメンテナンスがおすすめです。ご予約を心よりお待ちしております。
+
+NEUTRIZE` },
+  '高濃度水素カラー': { cycle: '6〜8週間後（1.5〜2ヶ月）', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。高濃度水素カラーは色持ちの良さが魅力ですが、根元のリタッチには1.5〜2ヶ月ほどが目安です。髪への負担を抑えながら美しい発色を維持するために、そろそろのご来店をおすすめいたします。
+
+NEUTRIZE` },
+  'カット＋カラー': { cycle: '6〜8週間後（1.5〜2ヶ月）', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。前回のカット＋カラーから1ヶ月半ほど経ちました。スタイルの形と色、どちらも美しい状態を保てるタイミングです。次回のご予約はお早めのご連絡がスムーズです。ご来店を心よりお待ちしております。
+
+NEUTRIZE` },
+  '髪質改善トリートメント': { cycle: '3〜4週間後', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。髪質改善トリートメントの効果は3〜4週間ほどで少しずつ落ち着いてきます。まとまりやすさをキープするために、そろそろのメンテナンスがおすすめです。手触りの変化を感じましたら、お気軽にご連絡ください。
+
+NEUTRIZE` },
+  '縮毛矯正': { cycle: '12〜16週間後（3〜4ヶ月）', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。前回の縮毛矯正から3ヶ月ほど経ち、根元のくせが気になり始める頃ではないでしょうか。湿気の季節を迎える前に、そろそろのメンテナンスをおすすめいたします。ご都合の良い日でご予約ください。
+
+NEUTRIZE` },
+  'oggi otto': { cycle: '4〜6週間後', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。oggi ottoでの施術から1ヶ月ほど経ちましたが、髪の調子はいかがでしょうか。全国上位1%の技術でつくり上げた質感を保つために、定期的なメンテナンスをおすすめしております。またのご来店をお待ちしております。
+
+NEUTRIZE` },
+  'パーマ': { cycle: '8〜12週間後（2〜3ヶ月）', body: `{NAME}いつもNEUTRIZEをご利用いただきありがとうございます。前回のパーマから2ヶ月ほど経ち、カールの動きが落ち着いてきた頃ではないでしょうか。ふんわりとした質感を再びお楽しみいただくために、そろそろのご来店がおすすめです。ご予約をお待ちしております。
+
+NEUTRIZE` }
+};
 
 let stylist = null, imgs = [], imgsSP = [], blogType = 'how-to', msgType = 'thanks';
 let starRating = 5, revCat = 'positive';
@@ -879,7 +924,11 @@ function getKws(id) { return [...document.querySelectorAll('#' + id + ' .kw.on')
 function pickType(el, t) { document.querySelectorAll('.tc-card').forEach(c => c.classList.remove('on')); el.classList.add('on'); blogType = t; }
 function pickStar(el, n) { document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('on')); el.classList.add('on'); starRating = n; }
 function pickRevCat(el, cat) { document.querySelectorAll('.rev-cat').forEach(c => c.classList.remove('on')); el.classList.add('on'); revCat = cat; }
-function pickMsgType(el, t) { document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('on')); el.classList.add('on'); msgType = t; }
+function pickMsgType(el, t) {
+  document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('on'));
+  el.classList.add('on'); msgType = t;
+  document.getElementById('rebook-tpl-wrap').style.display = (t === 'rebook') ? 'block' : 'none';
+}
 
 // ── IMAGES ──
 function handleImgs(e) {
@@ -1001,6 +1050,22 @@ function openHPBMsg() {
   copyText(document.getElementById('body-msg').textContent);
   toast('コピーしました — HPBを開きます');
   setTimeout(() => window.open(HPB_MSG_URL, '_blank'), 600);
+}
+
+// ── REPEAT PROMOTION TEMPLATES ──
+function useRepeatTemplate(menuKey) {
+  const tpl = REPEAT_TPL[menuKey];
+  if (!tpl) return;
+  const st = stylist ? S[stylist] : null;
+  const name = document.getElementById('msg-name').value.trim();
+  const body = tpl.body.replace('{NAME}', name ? name + '様、' : '');
+  document.getElementById('msg-menu').value = menuKey;
+  renderBody('body-msg', body, 'meta-msg', `<span class="m-tag">${body.length}字</span>${st ? `<span class="m-tag ${st.bg}">${st.nm}</span>` : ''}<span class="m-tag">定型文・${menuKey}</span><span class="m-tag">目安${tpl.cycle}</span>`);
+  liveCount('body-msg','msg-cnt',400);
+  document.getElementById('out-msg').classList.add('on');
+  document.getElementById('hpb-msg').classList.add('on');
+  saveHist({ type: 'message', typeLabel: '次回提案（定型文）', stylist, styleName: st ? st.nm : '', styleBg: st ? st.bg : '', title: `次回提案・${menuKey}${name ? '（'+name+'）' : ''}`, body, chars: body.length, date: new Date().toISOString() });
+  toast('定型文を読み込みました');
 }
 
 // ── GEN STYLE BLOG ──
