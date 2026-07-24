@@ -109,6 +109,11 @@ textarea{resize:none;line-height:1.6}
 .tc-ds{font-size:9px;color:var(--t3);line-height:1.4}
 .tc-card.on .tc-nm{color:var(--gold)}
 
+/* MESSAGE TYPE GRID */
+.mt-card{background:var(--sf);border:.5px solid var(--b);border-radius:var(--r);padding:9px 7px;text-align:center;cursor:pointer;transition:all .12s}
+.mt-card.on{border-color:var(--gold);background:var(--gd3)}
+.mt-card.on .tc-nm{color:var(--gold)}
+
 /* STARS */
 .star-row{display:flex;gap:8px;margin-bottom:13px}
 .star-btn{flex:1;padding:10px 4px;background:var(--sf);border:.5px solid var(--b);border-radius:var(--r);text-align:center;cursor:pointer;transition:all .12s;font-size:13px;color:var(--t2)}
@@ -304,6 +309,7 @@ textarea{resize:none;line-height:1.6}
     <button class="tab"     onclick="swTab('seo',this)">SEOブログ</button>
     <button class="tab"     onclick="swTab('stylepage',this)">スタイルページ</button>
     <button class="tab"     onclick="swTab('review',this)">口コミ返信</button>
+    <button class="tab"     onclick="swTab('message',this)">メッセージ</button>
     <button class="tab"     onclick="swTab('tips',this)">ヒント</button>
   </div>
 
@@ -557,6 +563,72 @@ textarea{resize:none;line-height:1.6}
     <div class="sb"></div>
   </div>
 
+  <!-- ── MESSAGE TAB ── -->
+  <div class="tc" id="tc-message">
+    <div class="info-box">HPBメッセージ機能は、ご予約・ご来店いただいたお客様に直接メッセージを送れる機能です。<em>目的別に文面を使い分ける</em>ことでリピート率アップにつながります。</div>
+
+    <div class="fld">
+      <label class="lb">メッセージの種類</label>
+      <div class="tg">
+        <div class="mt-card on" onclick="pickMsgType(this,'thanks')"><div class="tc-nm">来店御礼</div><div class="tc-ds">施術後のお礼</div></div>
+        <div class="mt-card" onclick="pickMsgType(this,'reminder')"><div class="tc-nm">来店リマインド</div><div class="tc-ds">予約前の確認</div></div>
+        <div class="mt-card" onclick="pickMsgType(this,'rebook')"><div class="tc-nm">次回提案</div><div class="tc-ds">リピート促進</div></div>
+        <div class="mt-card" onclick="pickMsgType(this,'anniversary')"><div class="tc-nm">誕生日・記念日</div><div class="tc-ds">特別な日に</div></div>
+        <div class="mt-card" onclick="pickMsgType(this,'winback')"><div class="tc-nm">ご無沙汰フォロー</div><div class="tc-ds">久しぶりの方へ</div></div>
+        <div class="mt-card" onclick="pickMsgType(this,'cancel')"><div class="tc-nm">キャンセル後</div><div class="tc-ds">フォロー</div></div>
+      </div>
+    </div>
+
+    <div class="fld">
+      <label class="lb">お客様のお名前（任意）</label>
+      <input type="text" id="msg-name" placeholder="例：田中様">
+    </div>
+    <div class="fld">
+      <label class="lb">直近のご利用メニュー（任意）</label>
+      <select id="msg-menu">
+        <option value="">指定なし</option>
+        <option>カット</option><option>透明感カラー</option>
+        <option>高濃度水素カラー</option><option>カット＋カラー</option>
+        <option>髪質改善トリートメント</option><option>縮毛矯正</option>
+        <option>oggi otto</option><option>パーマ</option>
+      </select>
+    </div>
+    <div class="fld">
+      <label class="lb">伝えたいこと・特記事項（任意）</label>
+      <textarea id="msg-note" rows="2" placeholder="例：次回はカラーの色持ちを良くするケアもご案内したい"></textarea>
+    </div>
+    <div class="fld">
+      <label class="lb">メッセージのトーン</label>
+      <select id="msg-tone">
+        <option value="warm">温かみ・丁寧（デフォルト）</option>
+        <option value="cool">洗練・クール</option>
+        <option value="casual">親しみやすい・カジュアル</option>
+      </select>
+    </div>
+
+    <div class="lbar" id="lb-msg"><div class="lb-fill"></div></div>
+    <button class="gen-btn" id="btn-msg" onclick="genMessage()">メッセージを生成</button>
+
+    <div class="out-box" id="out-msg">
+      <div class="out-hd">
+        <div class="out-eye">メッセージ本文</div>
+        <div class="out-acts">
+          <button class="obtn" id="ed-msg" onclick="toggleEdit('body-msg','ed-msg')">編集</button>
+          <button class="obtn" onclick="regenMessage()">再生成</button>
+          <button class="obtn" onclick="copyEl('body-msg')">コピー</button>
+        </div>
+      </div>
+      <div class="body-wrap">
+        <div class="body-txt" id="body-msg" oninput="liveCount('body-msg','msg-cnt',400)"></div>
+        <div class="edit-hint">タップして編集 · 外をタップで完了</div>
+      </div>
+      <div style="text-align:right;margin-top:3px"><span class="char-cnt" id="msg-cnt">0/400字（目安）</span></div>
+      <div class="out-meta" id="meta-msg"></div>
+    </div>
+    <button class="hpb-btn" id="hpb-msg" onclick="openHPBMsg()">コピー済み → HPBでメッセージを送る</button>
+    <div class="sb"></div>
+  </div>
+
   <!-- ── SEO BLOG TAB ── -->
   <div class="tc" id="tc-seo">
     <div class="fld">
@@ -636,6 +708,7 @@ textarea{resize:none;line-height:1.6}
     <div class="tip"><div class="tip-ttl">岡山×NEUTRIZEの勝ちキーワード</div><div class="tip-body"><span class="chip">岡山 美容室 透明感</span><span class="chip">岡山 縮毛矯正 上手い</span><span class="chip">丸の内 美容室 おすすめ</span><span class="chip">岡山 髪質改善</span><span class="chip">oggi otto 岡山</span><span class="chip">岡山 くせ毛 美容室</span></div></div>
     <div class="tip"><div class="tip-ttl">理想の投稿サイクル</div><div class="tip-body">週2〜3本が理想。スタイル紹介2本＋SEOコラム1本を基本に。月1回は2,000字以上の解説記事を入れるとドメイン評価が上がる。</div></div>
     <div class="tip"><div class="tip-ttl">CVRを上げる締め文のコツ</div><div class="tip-body">現在42.4% → エリア平均51.9%の差を埋めるには「締め」の精度が鍵。価格・所要時間を明記した上でHPBへの直リンクを入れること。</div></div>
+    <div class="tip"><div class="tip-ttl">HPBメッセージ機能の活用法</div><div class="tip-body">来店御礼は当日〜翌日中に送るのが理想。次回提案は施術サイクル（カラーなら1.5〜2ヶ月後）を逆算して送るとリピート率が上がる。ご無沙汰フォローは半年以上来店のない方に「お変わりないですか」の一言を添えて送ると再来店のきっかけになりやすい。名前を入れるだけで開封率・返信率が大きく変わる。</div></div>
     <div class="sb"></div>
   </div>
 </div>
@@ -695,11 +768,13 @@ const SYS_BLOG = SYS + '\n- ブログ末尾は「ご予約はホットペッパ�
 
 const HPB_URL = 'https://beauty.hotpepper.jp/slnH000183650/blog/';
 const HPB_REV_URL = 'https://beauty.hotpepper.jp/slnH000183650/';
+const HPB_MSG_URL = 'https://beauty.hotpepper.jp/slnH000183650/';
 const TYPE_LBL = {'how-to':'Howto記事','column':'お悩みコラム','local':'エリア集客','menu':'メニュー紹介','season':'季節トレンド','faq':'FAQ記事'};
+const MSG_TYPE_LBL = {thanks:'来店御礼',reminder:'来店リマインド',rebook:'次回提案',anniversary:'誕生日・記念日',winback:'ご無沙汰フォロー',cancel:'キャンセル後フォロー'};
 
-let stylist = null, imgs = [], imgsSP = [], blogType = 'how-to';
+let stylist = null, imgs = [], imgsSP = [], blogType = 'how-to', msgType = 'thanks';
 let starRating = 5, revCat = 'positive';
-let lastStyleP = null, lastSPP = null, lastSeoP = null, lastRevP = null;
+let lastStyleP = null, lastSPP = null, lastSeoP = null, lastRevP = null, lastMsgP = null;
 let detIdx = null;
 
 // ── NAV ──
@@ -767,9 +842,12 @@ const DEMO = {
     tags: 'ミニボブ 透け前髪 切りっぱなし 前髪あり ボブ 軽め',
     hashtags: ['ミニボブ','切りっぱなしボブ','前髪ありボブ','透け前髪','ナチュラルヘア','首元すっきり','簡単スタイリング','岡山美容室','NEUTRIZE']
   },
-  review: '口コミをお寄せいただきありがとうございます。担当スタイリストに喜びを伝えます。またのご来店を心よりお待ちしております。
+  review: `口コミをお寄せいただきありがとうございます。担当スタイリストに喜びを伝えます。またのご来店を心よりお待ちしております。
 
-NEUTRIZE',
+NEUTRIZE`,
+  message: `この度はNEUTRIZEにご来店いただき、誠にありがとうございました。仕上がりはいかがでしたでしょうか。ご自宅でのお手入れで気になることがございましたら、いつでもお気軽にご相談ください。次回のご来店を、スタッフ一同心よりお待ちしております。
+
+NEUTRIZE`,
   seo: {
     titles: ['岡山でくせ毛を活かすカットができる美容室3選','岡山のくせ毛専門カット｜広がりを抑えるコツ','くせ毛で悩む方へ｜岡山NEUTRIZEの髪質改善'],
     body: `# 岡山でくせ毛を活かすカットができる美容室3選
@@ -801,6 +879,7 @@ function getKws(id) { return [...document.querySelectorAll('#' + id + ' .kw.on')
 function pickType(el, t) { document.querySelectorAll('.tc-card').forEach(c => c.classList.remove('on')); el.classList.add('on'); blogType = t; }
 function pickStar(el, n) { document.querySelectorAll('.star-btn').forEach(b => b.classList.remove('on')); el.classList.add('on'); starRating = n; }
 function pickRevCat(el, cat) { document.querySelectorAll('.rev-cat').forEach(c => c.classList.remove('on')); el.classList.add('on'); revCat = cat; }
+function pickMsgType(el, t) { document.querySelectorAll('.mt-card').forEach(c => c.classList.remove('on')); el.classList.add('on'); msgType = t; }
 
 // ── IMAGES ──
 function handleImgs(e) {
@@ -917,6 +996,11 @@ function openHPBRev() {
   copyText(document.getElementById('body-rev').textContent);
   toast('コピーしました — HPBを開きます');
   setTimeout(() => window.open(HPB_REV_URL, '_blank'), 600);
+}
+function openHPBMsg() {
+  copyText(document.getElementById('body-msg').textContent);
+  toast('コピーしました — HPBを開きます');
+  setTimeout(() => window.open(HPB_MSG_URL, '_blank'), 600);
 }
 
 // ── GEN STYLE BLOG ──
@@ -1142,8 +1226,46 @@ BODY
   setLoading('seo', false);
 }
 
+// ── GEN MESSAGE ──
+async function genMessage() {
+  const p = { type: msgType, name: document.getElementById('msg-name').value.trim(), menu: document.getElementById('msg-menu').value, note: document.getElementById('msg-note').value.trim(), tone: document.getElementById('msg-tone').value };
+  lastMsgP = p; await runMessage(p);
+}
+async function regenMessage() { if (lastMsgP) await runMessage(lastMsgP); }
+async function runMessage(p) {
+  const st = S[stylist];
+  setLoading('msg', true);
+  const toneGuide = { warm: '温かみがあり丁寧。感謝の気持ちが伝わる文体。', cool: '洗練されていて品がある。シンプルで無駄のない文体。', casual: '親しみやすくフレンドリー。でも軽すぎない。' };
+  const prompt = `HPBのメッセージ機能でお客様に直接送るメッセージを作成してください。
+
+【メッセージの種類】${MSG_TYPE_LBL[p.type]}
+【お客様のお名前】${p.name || '（名前記載なし・「お客様」で統一）'}
+【直近のご利用メニュー】${p.menu || '未指定'}
+【伝えたいこと・特記事項】${p.note || 'なし'}
+【トーン】${toneGuide[p.tone]}
+
+メッセージ本文のみを出力してください（ラベルや見出し不要）。200〜350字程度。冒頭は${p.name ? `「${p.name}」への呼びかけ` : '丁寧な挨拶'}から始め、末尾はサロン名「NEUTRIZE」の署名で締める。`;
+  try {
+    const raw = await callAPI(SYS + `\n\n【担当の文体】${st.tone}`, [{ role: 'user', content: prompt }]);
+    const body = raw.trim();
+    renderBody('body-msg', body, 'meta-msg', `<span class="m-tag">${body.length}字</span><span class="m-tag ${st.bg}">${st.nm}</span><span class="m-tag">${MSG_TYPE_LBL[p.type]}</span>`);
+    liveCount('body-msg','msg-cnt',400);
+    document.getElementById('out-msg').classList.add('on');
+    document.getElementById('hpb-msg').classList.add('on');
+    saveHist({ type: 'message', typeLabel: MSG_TYPE_LBL[p.type], stylist, styleName: st.nm, styleBg: st.bg, title: `${MSG_TYPE_LBL[p.type]}${p.name ? '（'+p.name+'）' : ''}`, body, chars: body.length, date: new Date().toISOString() });
+  } catch(e) {
+    if (e.message === 'demo') {
+      renderBody('body-msg', DEMO.message, 'meta-msg', `<span class="m-tag">${DEMO.message.length}字</span><span class="m-tag ${S[stylist].bg}">${S[stylist].nm}</span><span class="m-tag">デモ</span>`);
+      liveCount('body-msg','msg-cnt',400);
+      document.getElementById('out-msg').classList.add('on');
+      document.getElementById('hpb-msg').classList.add('on');
+    } else if (e.message !== 'no key') toast('エラー: ' + e.message);
+  }
+  setLoading('msg', false);
+}
+
 // ── LOADING ──
-const BTN_LABELS = { style: 'スタイル紹介ブログを生成 — タイトル3案＋本文', sp: 'スタイルページ用テキストを一括生成', rev: '返信文を生成', seo: 'SEOブログを生成' };
+const BTN_LABELS = { style: 'スタイル紹介ブログを生成 — タイトル3案＋本文', sp: 'スタイルページ用テキストを一括生成', rev: '返信文を生成', seo: 'SEOブログを生成', msg: 'メッセージを生成' };
 function setLoading(id, on) {
   document.getElementById('lb-' + id).classList.toggle('on', on);
   const btn = document.getElementById('btn-' + id);
