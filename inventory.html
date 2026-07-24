@@ -1103,7 +1103,7 @@
       <div class="table-header"><div class="table-title">GOOGLE APPS SCRIPT — スプレッドシート自動保存</div></div>
       <div style="padding:20px;display:flex;flex-direction:column;gap:16px;">
         <div style="font-size:12px;color:var(--text-dim);line-height:2;">
-          入庫データ・棚卸しデータをGoogleスプレッドシートに自動保存します。<br>
+          入庫データ・棚卸しデータ・商品マスタ・カテゴリの変更をすべてGoogleスプレッドシートに自動保存します。<br>
           下のGASコードをコピーして設定してください。
         </div>
         <div style="display:flex;gap:10px;align-items:center;">
@@ -1153,6 +1153,26 @@ function doPost(e) {
           new Date(), item.name, item.cat, item.stock, item.target
         ]);
       });
+    }
+
+    // 商品マスタ（追加・編集・削除のたびに現在の全件で上書き）
+    if (data.type === 'master') {
+      const sheet = ss.getSheetByName('商品マスタ') || ss.insertSheet('商品マスタ');
+      sheet.clearContents();
+      sheet.appendRow(['商品名','カテゴリ','適正量','単位','仕入先','現在庫']);
+      data.items.forEach(item => {
+        sheet.appendRow([
+          item.name, item.cat, item.target, item.unit, item.supplier || '', item.stock
+        ]);
+      });
+    }
+
+    // カテゴリ一覧（追加・編集・削除のたびに現在の全件で上書き）
+    if (data.type === 'category') {
+      const sheet = ss.getSheetByName('カテゴリ') || ss.insertSheet('カテゴリ');
+      sheet.clearContents();
+      sheet.appendRow(['カテゴリ名']);
+      data.categories.forEach(cat => sheet.appendRow([cat]));
     }
 
     return ContentService
@@ -1291,6 +1311,10 @@ function saveCatEdit(i) {
   renderMasterTable();
   persistState();
   showSaveIndicator('✓ カテゴリを更新しました');
+
+  // GAS同期（カテゴリ名変更は既存商品のカテゴリにも影響するため両方同期）
+  syncToGAS('category', { categories });
+  syncToGAS('master', { items: stockData });
 }
 
 function addCategory() {
@@ -1304,6 +1328,9 @@ function addCategory() {
   refreshCatSelects();
   persistState();
   showSaveIndicator('✓ カテゴリを追加しました');
+
+  // GAS同期
+  syncToGAS('category', { categories });
 }
 
 function deleteCategory(i) {
@@ -1319,6 +1346,10 @@ function deleteCategory(i) {
   renderMasterTable();
   persistState();
   showSaveIndicator('✓ カテゴリを削除しました');
+
+  // GAS同期（削除で「その他」に変わった商品のカテゴリも同期）
+  syncToGAS('category', { categories });
+  syncToGAS('master', { items: stockData });
 }
 
 function refreshCatSelects() {
