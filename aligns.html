@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>ALIGNS PRO — HPB集客コンサルティング診断</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ALIGNS">
+<meta name="theme-color" content="#FDFAF5">
+<meta name="description" content="HPB(ホットペッパービューティー)集客を6フェーズで診断し、見込み客からのリード獲得までつなげるコンサルティングツール">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--g:#B8965A;--gl:rgba(184,150,90,0.1);--gb:rgba(184,150,90,0.25);--gd:#7A5E2A;--bg:#FDFAF5;--bg2:#F3EFE8;--ink:#2A2520;--ink2:#6A5E58;--ink3:#A09088;--bdr:rgba(184,150,90,0.15);--bdr2:rgba(184,150,90,0.3);--ok:#1D9E75;--ok-l:#E1F5EE;--ok-d:#085041;--wn:#EF9F27;--wn-l:#FAEEDA;--ng:#E24B4A;--ng-l:#FCEBEB}
+html,body{height:100%}
+body{font-family:'Noto Sans JP',sans-serif;background:var(--bg);color:var(--ink);line-height:1.8}
+.shell{max-width:820px;margin:0 auto;padding:0 24px 80px}
+.nav{display:flex;align-items:flex-end;justify-content:space-between;padding:28px 0 20px;border-bottom:0.5px solid var(--gb);margin-bottom:20px}
+.nav-title{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;letter-spacing:.16em;color:var(--ink)}
+.nav-sub{font-size:9px;letter-spacing:.2em;color:var(--g);text-transform:uppercase;margin-top:3px}
+.tabs{display:flex;border-bottom:0.5px solid var(--gb);margin-bottom:24px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:9px 14px;font-size:11px;letter-spacing:.06em;color:var(--ink2);cursor:pointer;border-bottom:1.5px solid transparent;margin-bottom:-0.5px;transition:all .2s;background:none;border-top:none;border-left:none;border-right:none;font-family:'Noto Sans JP',sans-serif;white-space:nowrap}
+.tab.on{color:var(--g);border-bottom-color:var(--g)}
+.sec{display:none}.sec.on{display:block}
+.lbl{font-size:9px;letter-spacing:.2em;color:var(--g);text-transform:uppercase;margin-bottom:7px}
+.card{background:#fff;border:0.5px solid var(--gb);border-radius:12px;padding:20px 24px;margin-bottom:14px}
+.gd{border:none;border-top:0.5px solid var(--gb);margin:12px 0}
+.hint{font-size:11px;color:var(--ink2);margin-bottom:12px;line-height:1.7}
+
+/* mode toggle */
+.mode2{display:grid;grid-template-columns:1fr 1fr;border:0.5px solid var(--gb);border-radius:8px;overflow:hidden;margin-bottom:16px}
+.mbtn{padding:12px 8px;text-align:center;font-size:12px;letter-spacing:.08em;cursor:pointer;background:#fff;color:var(--ink2);border:none;font-family:'Noto Sans JP',sans-serif;transition:all .15s}
+.mbtn.on{background:var(--ink);color:#fff}
+
+/* settings grid */
+.setg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.fld{margin-bottom:10px}
+.fld label{font-size:10px;color:var(--ink3);letter-spacing:.06em;display:block;margin-bottom:5px}
+.fld input[type=text],.fld input[type=email],.fld input[type=number],.fld textarea,.fld select{width:100%;border:0.5px solid var(--bdr2);border-radius:8px;padding:9px 11px;font-size:13px;font-family:'Noto Sans JP',sans-serif;color:var(--ink);background:#fff;outline:none;transition:border-color .2s}
+.fld input:focus,.fld textarea:focus,.fld select:focus{border-color:var(--g)}
+.fld textarea{resize:vertical;line-height:1.7}
+
+.depth2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
+.dep{border:0.5px solid var(--gb);border-radius:8px;padding:11px 12px;cursor:pointer;transition:all .15s}
+.dep.on{border-color:var(--g);background:var(--gl)}
+.dept{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.deps{font-size:10px;color:var(--ink2)}
+
+.focusg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:14px}
+.fchip{border:0.5px solid var(--bdr2);border-radius:6px;padding:8px 6px;text-align:center;font-size:10.5px;color:var(--ink2);cursor:pointer;transition:all .15s;background:#fff}
+.fchip.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
+
+.pm{display:grid;grid-template-columns:repeat(6,1fr);border:0.5px solid var(--gb);border-radius:12px;overflow:hidden;margin-bottom:10px}
+.pmc{padding:10px 5px;text-align:center;border-right:0.5px solid var(--gb);cursor:pointer;transition:background .15s}
+.pmc:last-child{border-right:none}
+.pmc:hover,.pmc.on{background:var(--gl)}
+.pml{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--g);line-height:1;margin-bottom:3px}
+.pmw{font-size:8px;color:var(--ink);margin-bottom:1px}
+.pmj{font-size:8px;color:var(--ink2)}
+.db{background:var(--gl);border:0.5px solid var(--gb);border-radius:8px;padding:13px 16px;margin-bottom:12px;display:none}
+.db.on{display:block}
+.dbl{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:300;color:var(--g);margin-bottom:4px}
+.dbq{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:5px}
+.dbb{font-size:11px;color:var(--ink2);line-height:1.8}
+.dbk{font-size:10px;color:var(--gd);margin-top:6px;padding-top:6px;border-top:0.5px solid var(--gb)}
+.irow{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:0.5px solid var(--bdr)}
+.irow:last-child{border-bottom:none}
+.il{font-size:12px;color:var(--ink)}
+.is{font-size:10px;color:var(--ink2);margin-top:1px}
+.ir{display:flex;align-items:center;gap:7px}
+.ni{width:72px;text-align:center;border:0.5px solid var(--bdr2);border-radius:8px;padding:7px 8px;font-size:14px;font-weight:500;font-family:'Noto Sans JP',sans-serif;color:var(--ink);background:#fff;outline:none;transition:border-color .2s}
+.ni:focus{border-color:var(--g)}
+.ni.w{width:90px}
+.iu{font-size:11px;color:var(--ink2);min-width:18px}
+.tb{font-size:9px;color:var(--gd);background:var(--gl);padding:2px 8px;border-radius:20px;white-space:nowrap;border:0.5px solid var(--gb)}
+.rb{font-size:9px;color:#854F0B;background:#FAEEDA;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.sp2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:4px}
+.sb{border:0.5px solid var(--gb);border-radius:8px;padding:12px 14px;background:#fff}
+.st{font-size:10px;font-weight:500;color:var(--ink);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.bdg{font-size:9px;padding:2px 9px;border-radius:20px}
+.bdg.wd{background:var(--bg2);color:var(--ink2);border:0.5px solid var(--bdr2)}
+.bdg.we{background:#FAEEDA;color:#854F0B;border:0.5px solid #FAC775}
+.bdg.bl{background:var(--gl);color:var(--gd);border:0.5px solid var(--gb)}
+.bdg.st2{background:#EEEDFE;color:#3C3489;border:0.5px solid #AFA9EC}
+.sc{display:flex;flex-direction:column;gap:5px}
+.sg{padding:7px 10px;border:0.5px solid var(--bdr2);border-radius:6px;font-size:11px;cursor:pointer;color:var(--ink2);background:transparent;transition:all .2s;font-family:'Noto Sans JP',sans-serif;text-align:left;width:100%}
+.sg:hover{border-color:var(--g);color:var(--gd)}
+.sg.on{border-color:var(--g);background:var(--gl);color:var(--gd)}
+.go{width:100%;padding:14px;background:var(--g);color:#fff;border:none;border-radius:6px;font-size:12px;letter-spacing:.2em;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:opacity .2s;margin-top:1rem}
+.go:hover{opacity:.85}
+.pg6{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;margin-bottom:1rem}
+.ph{border-radius:8px;padding:10px 6px;text-align:center}
+.ph.ok{background:var(--ok-l);border:0.5px solid #5DCAA5}
+.ph.warn{background:var(--wn-l);border:0.5px solid #FAC775}
+.ph.ng{background:var(--ng-l);border:0.5px solid #F09595}
+.ph.na{background:var(--bg2);border:0.5px solid var(--bdr)}
+.phl{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;margin-bottom:2px}
+.ph.ok .phl{color:var(--ok-d)}.ph.warn .phl{color:#854F0B}.ph.ng .phl{color:#A32D2D}.ph.na .phl{color:var(--ink3)}
+.phn{font-size:8px;margin-bottom:3px}
+.ph.ok .phn{color:var(--ok-d)}.ph.warn .phn{color:#854F0B}.ph.ng .phn{color:#A32D2D}.ph.na .phn{color:var(--ink3)}
+.phs{font-size:9px;font-weight:500}
+.ph.ok .phs{color:var(--ok-d)}.ph.warn .phs{color:#854F0B}.ph.ng .phs{color:#A32D2D}.ph.na .phs{color:var(--ink3)}
+.pull{border-left:2px solid var(--g);padding:10px 0 10px 16px;margin:.75rem 0}
+.pt{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;font-style:italic;line-height:1.9;color:var(--ink)}
+.kr{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:1rem}
+.km{background:var(--bg2);border-radius:8px;padding:10px 12px}
+.kml{font-size:9px;color:var(--ink3);letter-spacing:.06em;margin-bottom:3px}
+.kmv{font-size:18px;font-weight:500;color:var(--ink);line-height:1.2}
+.kmu{font-size:9px;font-weight:400;color:var(--ink3)}
+.kmt{font-size:9px;margin-top:3px}
+.kmt.ok{color:var(--ok)}.kmt.warn{color:var(--wn)}.kmt.ng{color:var(--ng)}
+.ai{display:flex;gap:12px;padding:11px 0;border-bottom:0.5px solid var(--bdr);align-items:flex-start}
+.ai:last-child{border-bottom:none}
+.an{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--g);min-width:18px;flex-shrink:0;padding-top:1px}
+.ap{font-size:9px;letter-spacing:.08em;color:var(--g);margin-bottom:3px}
+.ah{font-size:12px;font-weight:500;color:var(--ink);margin-bottom:3px}
+.ad{font-size:11px;color:var(--ink2);line-height:1.8}
+.kw{background:var(--gl);border:0.5px solid var(--gb);border-radius:4px;padding:8px 10px;margin-top:6px;font-size:10px;color:var(--gd);line-height:1.8}
+.kwl{font-size:9px;letter-spacing:.1em;color:var(--g);margin-bottom:3px;text-transform:uppercase}
+.th{display:inline-block;font-size:9px;padding:2px 8px;border-radius:3px;background:var(--ng-l);color:#791F1F;margin-left:6px;vertical-align:middle}
+.tm{display:inline-block;font-size:9px;padding:2px 8px;border-radius:3px;background:var(--wn-l);color:#633806;margin-left:6px;vertical-align:middle}
+.fg{display:inline-block;font-size:9px;padding:2px 8px;border-radius:3px;background:#EEEDFE;color:#3C3489;margin-left:6px;vertical-align:middle}
+.rb2{background:var(--bg2);border-radius:8px;padding:1rem 1.25rem;font-size:12px;line-height:1.9;color:var(--ink);white-space:pre-wrap;font-family:'Noto Sans JP',sans-serif;margin-top:8px}
+.br{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.cb{flex:1;min-width:110px;padding:10px;border:0.5px solid var(--gb);border-radius:6px;font-size:10px;letter-spacing:.1em;color:var(--ink2);background:transparent;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s}
+.cb:hover{border-color:var(--g);color:var(--gd)}
+.svb{flex:1;min-width:110px;padding:10px;border:0.5px solid var(--g);border-radius:6px;font-size:10px;letter-spacing:.1em;color:var(--gd);background:transparent;cursor:pointer;font-family:'Noto Sans JP',sans-serif;transition:all .2s}
+.svb:hover{background:var(--gl)}
+.svb.deep{background:var(--ink);color:#fff;border-color:var(--ink)}
+.svb.deep:hover{opacity:.85;background:var(--ink)}
+.rs{display:none}.rs.on{display:block}
+.hi{border:0.5px solid var(--gb);border-radius:8px;padding:14px 16px;margin-bottom:10px}
+.hi-d{font-size:10px;color:var(--ink3);letter-spacing:.08em;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+.hi-p{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+.hp{font-size:9px;padding:2px 8px;border-radius:4px;font-weight:500}
+.hp.ok{background:var(--ok-l);color:var(--ok-d)}.hp.warn{background:var(--wn-l);color:#854F0B}.hp.ng{background:var(--ng-l);color:#A32D2D}
+.hi-i{font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:var(--ink2);line-height:1.7}
+.db2{font-size:9px;color:var(--ink3);background:none;border:none;cursor:pointer;font-family:'Noto Sans JP',sans-serif;padding:2px 6px}
+.db2:hover{color:var(--ng)}
+.eh{text-align:center;padding:2.5rem 0;color:var(--ink3);font-size:12px}
+.vr{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:0.5px solid var(--bdr)}
+.vr:last-child{border-bottom:none}
+.vl{font-size:12px;color:var(--ink);min-width:100px}
+.vb{flex:1;display:flex;flex-direction:column;gap:4px}
+.vbw{display:flex;align-items:center;gap:6px}
+.vt{font-size:9px;color:var(--ink3);min-width:36px}
+.vg{flex:1;height:8px;background:var(--bg2);border-radius:4px;overflow:hidden}
+.vf{height:100%;border-radius:4px}
+.vs{background:var(--g)}.va{background:#8E8FE0}
+.vv{font-size:11px;font-weight:500;min-width:44px;text-align:right}
+
+/* lead form */
+.lead{background:linear-gradient(135deg,var(--gl),var(--bg2));border:0.5px solid var(--gb);border-radius:12px;padding:20px 22px;margin-top:14px}
+.lead-h{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--ink);margin-bottom:4px}
+.lead-s{font-size:11px;color:var(--ink2);margin-bottom:14px;line-height:1.8}
+.lg2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.leadok{display:none;font-size:12px;color:var(--ok-d);background:var(--ok-l);border-radius:8px;padding:10px 14px;margin-top:10px}
+.leadok.on{display:block}
+.lrow{border:0.5px solid var(--gb);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.lrow-t{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px}
+.lrow-n{font-size:13px;font-weight:500;color:var(--ink)}
+.lrow-d{font-size:9px;color:var(--ink3)}
+.lrow-m{font-size:11px;color:var(--ink2);line-height:1.7}
+
+@media(max-width:600px){.shell{padding:0 16px 80px}.kr{grid-template-columns:repeat(2,1fr)}.pg6{grid-template-columns:repeat(3,1fr)}.pm{grid-template-columns:repeat(3,1fr)}.setg{grid-template-columns:1fr}.focusg{grid-template-columns:repeat(2,1fr)}.depth2{grid-template-columns:1fr}.lg2{grid-template-columns:1fr}}
+
+@media print{
+  body *{visibility:hidden}
+  #printArea,#printArea *{visibility:visible}
+  #printArea{position:absolute;top:0;left:0;width:100%;padding:20px}
+  .no-print{display:none!important}
+}
+</style>
+</head>
+<body>
+<div class="shell">
+<div class="nav no-print">
+  <div><div class="nav-title">ALIGNS PRO</div><div class="nav-sub">HPB集客診断 · コンサルティング支援ツール</div></div>
+  <div style="font-size:10px;color:var(--ink3);letter-spacing:.08em" id="tlbl"></div>
+</div>
+<div class="tabs no-print">
+  <button class="tab on" onclick="sw('i')">診断</button>
+  <button class="tab" onclick="sw('c')">競合比較</button>
+  <button class="tab" onclick="sw('h')">履歴</button>
+  <button class="tab" onclick="sw('l')">リード獲得</button>
+  <button class="tab" onclick="sw('a')">ALIGNSとは</button>
+</div>
+
+<!-- 診断 -->
+<div class="sec on" id="s-i">
+  <div class="card no-print">
+    <div class="lbl" style="margin-bottom:8px">モード</div>
+    <div class="mode2">
+      <button class="mbtn on" id="m-self" onclick="setMode('self')">自店診断</button>
+      <button class="mbtn" id="m-client" onclick="setMode('client')">クライアント提案</button>
+    </div>
+    <div class="hint" id="modeHint">自店のHPB運用を毎週セルフチェックします。</div>
+
+    <div class="lbl" style="margin-bottom:8px">診断対象の設定</div>
+    <div class="setg">
+      <div class="fld"><label>サロン名</label><input type="text" id="cf-name" placeholder="例：NEUTRIZE"></div>
+      <div class="fld"><label>エリア</label><input type="text" id="cf-area" placeholder="例：岡山市北区"></div>
+    </div>
+    <div class="fld"><label>得意メニュー・強み（カンマ区切り。SEOキーワード生成に使用）</label><input type="text" id="cf-menu" placeholder="例：透明感カラー,髪質改善,縮毛矯正"></div>
+    <div class="fld"><label>USP・アピールポイント（任意。1行1項目）</label><textarea id="cf-usp" rows="2" placeholder="例：HPBアワード2022〜2025年連続受賞&#10;oggi otto全国上位1%認定"></textarea></div>
+
+    <div class="lbl" style="margin-bottom:8px">診断の深度</div>
+    <div class="depth2">
+      <div class="dep on" id="dep-std" onclick="setDepth('std')"><div class="dept">スタンダード</div><div class="deps">6フェーズ判定＋即実行アクション（無料・即時）</div></div>
+      <div class="dep" id="dep-deep" onclick="setDepth('deep')"><div class="dept">ディープ</div><div class="deps">診断後にClaudeで詳細分析・改善提案書を自動生成</div></div>
+    </div>
+
+    <div class="lbl" style="margin-bottom:8px">フォーカス領域（複数選択可・優先アクションの並びに反映）</div>
+    <div class="focusg" id="focusg">
+      <button class="fchip" onclick="togFocus(this,'A')">PV・発見</button>
+      <button class="fchip" onclick="togFocus(this,'L')">CVR・予約導線</button>
+      <button class="fchip" onclick="togFocus(this,'I')">単価・クーポン設計</button>
+      <button class="fchip" onclick="togFocus(this,'photo')">フォト戦略</button>
+      <button class="fchip" onclick="togFocus(this,'N')">口コミ・再来</button>
+      <button class="fchip" onclick="togFocus(this,'blog')">ブログ・鮮度</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="lbl" style="margin-bottom:8px">フェーズをタップして意味を確認</div>
+    <div class="pm" id="pm">
+      <div class="pmc" onclick="td('A')"><div class="pml">A</div><div class="pmw">Attention</div><div class="pmj">知ってもらう</div></div>
+      <div class="pmc" onclick="td('L')"><div class="pml">L</div><div class="pmw">Landing</div><div class="pmj">止まってもらう</div></div>
+      <div class="pmc" onclick="td('I')"><div class="pml">I</div><div class="pmw">Intention</div><div class="pmj">予約してもらう</div></div>
+      <div class="pmc" onclick="td('G')"><div class="pml">G</div><div class="pmw">Gain</div><div class="pmj">体験してもらう</div></div>
+      <div class="pmc" onclick="td('N')"><div class="pml">N</div><div class="pmw">Nurture</div><div class="pmj">また来てもらう</div></div>
+      <div class="pmc" onclick="td('S')"><div class="pml">S</div><div class="pmw">Share</div><div class="pmj">広めてもらう</div></div>
+    </div>
+    <div id="db" class="db"></div>
+    <div class="lbl">今月の数字（月初〜当日累計）</div>
+    <div class="irow"><div><div class="il">HPBアクセス数</div><div class="is">月初から今日までの合計閲覧数</div></div><div class="ir"><input class="ni w" type="number" id="acc" min="0" placeholder="0"><span class="iu">PV</span></div></div>
+    <div class="irow"><div><div class="il">CVR（予約転換率）</div><div class="is" id="cvrBenchLbl">業界平均 51.9%</div></div><div class="ir"><input class="ni" type="number" id="cvr" min="0" max="100" step="0.1" placeholder="0"><span class="iu">%</span><span class="rb" id="cvrBenchTag">業界 51.9%</span></div></div>
+    <div class="irow"><div><div class="il">ACR（再来率）</div><div class="is" id="acrBenchLbl">業界平均 10.3%</div></div><div class="ir"><input class="ni" type="number" id="acr" min="0" max="100" step="0.1" placeholder="0"><span class="iu">%</span><span class="tb" id="acrBenchTag">業界 10.3%</span></div></div>
+    <div class="irow"><div><div class="il">新規客数</div><div class="is">今週の初来店客</div></div><div class="ir"><input class="ni" type="number" id="nc" min="0" placeholder="0"><span class="iu">名</span><span class="tb">目標 20名/週</span></div></div>
+    <div class="irow"><div><div class="il">口コミ件数</div><div class="is">今週の新規口コミ</div></div><div class="ir"><input class="ni" type="number" id="rv" min="0" placeholder="0"><span class="iu">件</span><span class="tb">目標 6件/週</span></div></div>
+    <div class="irow"><div><div class="il">予約数（今月累計）</div><div class="is">月初から今日までの合計</div></div><div class="ir"><input class="ni w" type="number" id="bk" min="0" placeholder="0"><span class="iu">件</span></div></div>
+    <div class="gd"></div>
+    <div class="lbl" style="margin-bottom:10px">予約の埋まり具合</div>
+    <div class="sp2">
+      <div class="sb"><div class="st"><span class="bdg wd">平日</span>月〜金</div><div class="sc" id="seg-wd"><button class="sg" onclick="ss(this,'seg-wd')">余裕あり（〜60%）</button><button class="sg" onclick="ss(this,'seg-wd')">ほぼ埋まっている（60〜80%）</button><button class="sg" onclick="ss(this,'seg-wd')">満席が続いている（80%〜）</button></div></div>
+      <div class="sb"><div class="st"><span class="bdg we">土日</span>祝日含む</div><div class="sc" id="seg-we"><button class="sg" onclick="ss(this,'seg-we')">余裕あり（〜60%）</button><button class="sg" onclick="ss(this,'seg-we')">ほぼ埋まっている（60〜80%）</button><button class="sg" onclick="ss(this,'seg-we')">満席が続いている（80%〜）</button></div></div>
+    </div>
+    <div class="gd"></div>
+    <div class="lbl" style="margin-bottom:10px">HPB投稿（今週）</div>
+    <div class="sp2">
+      <div class="sb"><div class="st"><span class="bdg bl">ブログ</span>記事投稿</div><div class="sc" id="seg-bl"><button class="sg" onclick="ss(this,'seg-bl')">0〜2投稿</button><button class="sg" onclick="ss(this,'seg-bl')">3〜5投稿</button><button class="sg" onclick="ss(this,'seg-bl')">5投稿以上</button></div></div>
+      <div class="sb"><div class="st"><span class="bdg st2">スタイル</span>写真投稿</div><div class="sc" id="seg-st"><button class="sg" onclick="ss(this,'seg-st')">0〜2枚</button><button class="sg" onclick="ss(this,'seg-st')">3〜5枚</button><button class="sg" onclick="ss(this,'seg-st')">6枚以上</button></div></div>
+    </div>
+    <button class="go" onclick="diag()">診断する</button>
+  </div>
+
+  <div class="rs" id="res">
+    <div id="printArea">
+    <div class="card"><div class="lbl" style="margin-bottom:10px">フェーズ別診断</div><div class="pg6" id="pg"></div><div class="pull"><div class="pt" id="ins"></div></div></div>
+    <div class="card"><div class="lbl">数値サマリー</div><div class="kr" id="kr"></div></div>
+    <div class="card"><div class="lbl">今週の優先アクション</div><div id="al"></div></div>
+    <div class="card"><div class="lbl">レポート下書き</div><div class="rb2" id="rb"></div>
+      <div class="br no-print">
+        <button class="cb" onclick="cpR()">テキストをコピー</button>
+        <button class="svb" onclick="svR()">この診断を保存する</button>
+        <button class="cb" onclick="window.print()">PDFとして保存/印刷</button>
+      </div>
+      <div class="br no-print" id="deepRow" style="display:none">
+        <button class="svb deep" onclick="openDeep()">Claude.aiで詳細分析・改善提案書を生成する ↗</button>
+      </div>
+      <div id="svm" style="font-size:10px;color:var(--ok-d);margin-top:6px;display:none">保存しました</div>
+    </div>
+    </div>
+    <div class="lead no-print" id="leadCard">
+      <div class="lead-h" id="leadTitle">この診断結果をもとに、無料相談を申し込む</div>
+      <div class="lead-s" id="leadSub">改善提案書の作成・具体的な実行支援をご希望の方は、こちらからご連絡ください。</div>
+      <div class="lg2">
+        <div class="fld"><label>お名前</label><input type="text" id="ld-name"></div>
+        <div class="fld"><label>サロン名</label><input type="text" id="ld-salon"></div>
+        <div class="fld"><label>連絡方法</label><select id="ld-method"><option>LINE</option><option>メール</option><option>電話</option></select></div>
+        <div class="fld"><label>連絡先</label><input type="text" id="ld-contact" placeholder="LINE ID / メールアドレス / 電話番号"></div>
+      </div>
+      <div class="fld"><label>ご相談内容（任意）</label><textarea id="ld-note" rows="2"></textarea></div>
+      <div class="br">
+        <button class="svb" onclick="submitLead()">この内容で相談を申し込む</button>
+        <button class="cb" onclick="mailLead()">担当者にメールで送る</button>
+      </div>
+      <div class="leadok" id="leadok">お申し込みありがとうございます。担当者より折り返しご連絡いたします。</div>
+    </div>
+  </div>
+</div>
+
+<!-- 競合比較 -->
+<div class="sec" id="s-c">
+  <div class="card">
+    <div class="lbl" style="margin-bottom:8px">自店 vs 競合店の数値を入力</div>
+    <div class="hint">HPB上の競合サロンのページを見ながら数値を入力すると、どのフェーズで差がついているかを比較できます。</div>
+    <div class="setg">
+      <div class="fld"><label>競合サロン名（任意）</label><input type="text" id="cp-name" placeholder="例：〇〇美容室"></div>
+      <div></div>
+    </div>
+    <div class="setg">
+      <div class="fld"><label>自店 CVR (%)</label><input type="number" id="cp-cvr-a" step="0.1"></div>
+      <div class="fld"><label>競合 CVR (%)</label><input type="number" id="cp-cvr-b" step="0.1"></div>
+      <div class="fld"><label>自店 ACR (%)</label><input type="number" id="cp-acr-a" step="0.1"></div>
+      <div class="fld"><label>競合 ACR (%)</label><input type="number" id="cp-acr-b" step="0.1"></div>
+      <div class="fld"><label>自店 月間PV</label><input type="number" id="cp-pv-a"></div>
+      <div class="fld"><label>競合 月間PV</label><input type="number" id="cp-pv-b"></div>
+      <div class="fld"><label>自店 クーポン数</label><input type="number" id="cp-cp-a"></div>
+      <div class="fld"><label>競合 クーポン数</label><input type="number" id="cp-cp-b"></div>
+    </div>
+    <button class="go" onclick="compare()">比較する</button>
+  </div>
+  <div class="card rs" id="cpRes">
+    <div class="lbl">比較結果</div>
+    <div id="cpBars"></div>
+    <div class="pull"><div class="pt" id="cpIns"></div></div>
+  </div>
+</div>
+
+<!-- 履歴 -->
+<div class="sec" id="s-h"><div class="card"><div class="lbl" style="margin-bottom:12px">診断の記録</div><div id="hl"></div></div></div>
+
+<!-- リード獲得 -->
+<div class="sec" id="s-l">
+  <div class="card">
+    <div class="lbl" style="margin-bottom:10px">獲得したリード一覧</div>
+    <div class="hint">「診断」タブの相談フォームから送信された内容がここに記録されます（このブラウザ内にのみ保存）。</div>
+    <div class="br no-print" style="margin-bottom:10px">
+      <button class="cb" onclick="exportCSV()">CSVでエクスポート</button>
+    </div>
+    <div id="ll"></div>
+  </div>
+</div>
+
+<!-- ALIGNSとは -->
+<div class="sec" id="s-a">
+  <div class="card">
+    <div class="lbl" style="margin-bottom:10px">ALIGNS PROの6フェーズ</div>
+    <div style="font-size:13px;line-height:2;color:var(--ink);margin-bottom:1rem">お客様がサロンを「知って → 来て → また来て → 広める」までの6つの関門。どこが弱いかを毎週確認することが集客改善への最短ルートです。ALIGNS PROは自店の定期チェックだけでなく、見込み客サロンへの無料診断→相談申し込みという「集客導線」としても使えます。</div>
+    <div class="pm" style="margin-bottom:1.25rem"><div class="pmc"><div class="pml">A</div><div class="pmw">Attention</div><div class="pmj">知ってもらう</div></div><div class="pmc"><div class="pml">L</div><div class="pmw">Landing</div><div class="pmj">止まってもらう</div></div><div class="pmc"><div class="pml">I</div><div class="pmw">Intention</div><div class="pmj">予約してもらう</div></div><div class="pmc"><div class="pml">G</div><div class="pmw">Gain</div><div class="pmj">体験してもらう</div></div><div class="pmc"><div class="pml">N</div><div class="pmw">Nurture</div><div class="pmj">また来てもらう</div></div><div class="pmc"><div class="pml">S</div><div class="pmw">Share</div><div class="pmj">広めてもらう</div></div></div>
+    <div class="pull"><div class="pt">弱いフェーズは1つに絞る。全部同時に動かすと何も変わらない。ALIGNSは「どこを先に直すか」を決め、そのまま次の一手（相談・提案）につなげるためのツール。</div></div>
+  </div>
+</div>
+</div>
+
+<script>
+// ── DEFAULT CONFIG (NEUTRIZEの実データを初期値として使用。他店診断時は自由に書き換え可) ──
+const DEFAULT_CFG={name:'NEUTRIZE',area:'岡山市北区丸の内',menu:'透明感カラー,髪質改善,縮毛矯正,高濃度水素カラー',usp:'HPBアワード2022〜2025年連続受賞\noggi otto全国上位1%認定',benchCVR:51.9,benchACR:10.3,leadEmail:'neutrize@gmail.com'};
+let CFG={...DEFAULT_CFG};
+try{const s=JSON.parse(localStorage.getItem('aligns2_cfg')||'null');if(s)CFG={...DEFAULT_CFG,...s};}catch(e){}
+let mode='self',depth='std',focus=new Set();
+
+function loadCfgToForm(){
+  document.getElementById('cf-name').value=CFG.name;
+  document.getElementById('cf-area').value=CFG.area;
+  document.getElementById('cf-menu').value=CFG.menu;
+  document.getElementById('cf-usp').value=CFG.usp;
+}
+function saveCfgFromForm(){
+  CFG.name=document.getElementById('cf-name').value.trim()||DEFAULT_CFG.name;
+  CFG.area=document.getElementById('cf-area').value.trim()||DEFAULT_CFG.area;
+  CFG.menu=document.getElementById('cf-menu').value.trim()||DEFAULT_CFG.menu;
+  CFG.usp=document.getElementById('cf-usp').value;
+  try{localStorage.setItem('aligns2_cfg',JSON.stringify(CFG));}catch(e){}
+}
+['cf-name','cf-area','cf-menu','cf-usp'].forEach(id=>{
+  document.addEventListener('DOMContentLoaded',()=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('change',saveCfgFromForm);
+  });
+});
+
+function setMode(m){
+  mode=m;
+  document.getElementById('m-self').classList.toggle('on',m==='self');
+  document.getElementById('m-client').classList.toggle('on',m==='client');
+  document.getElementById('modeHint').textContent=m==='self'
+    ?'自店のHPB運用を毎週セルフチェックします。'
+    :'見込み客・提案先サロンの情報を入力し、無料診断→改善提案書として活用します。診断後は下部の相談フォームで先方の連絡先を記録できます。';
+  document.getElementById('leadTitle').textContent=m==='self'
+    ?'コンサルタントに相談する'
+    :`${CFG.name||'診断対象'}様へ：この診断結果をもとに、無料相談を申し込む`;
+  document.getElementById('leadSub').textContent=m==='self'
+    ?'この数値をもとに専門家からより詳しい改善提案が欲しい場合はこちらから。'
+    :'改善提案書の作成・具体的な実行支援をご希望の場合は、サロン担当者様の連絡先をご記入ください。';
+}
+function setDepth(d){
+  depth=d;
+  document.getElementById('dep-std').classList.toggle('on',d==='std');
+  document.getElementById('dep-deep').classList.toggle('on',d==='deep');
+}
+function togFocus(el,key){
+  el.classList.toggle('on');
+  if(focus.has(key))focus.delete(key);else focus.add(key);
+}
+
+const PD={A:{w:'Attention',j:'知ってもらう',q:'HPBのブログ・スタイル写真で見つけてもらえているか？',b:'ブログは週3〜5本、スタイル写真は週6枚以上が理想。タイトルにエリア名＋施術名を入れることでHPB内の順位が上がる。',k:''},L:{w:'Landing',j:'止まってもらう',q:'HPBの一覧でクリックしてもらえているか？',b:'サムネイル写真とファーストビューを0.5秒で判断される。CVRが業界平均を下回っている場合は最大の弱点。',k:'指標 → CVR'},I:{w:'Intention',j:'予約してもらう',q:'ページを見たお客様が予約ボタンを押しているか？',b:'クーポンの数・価格・紹介文が決め手。受賞歴・認定などのUSPは必ず冒頭に出す。',k:'指標 → 新規客数 / 予約数 / 埋まり具合'},G:{w:'Gain',j:'体験してもらう',q:'来店後の施術・接客・空間で期待以上を感じてもらえているか？',b:'GはNとSを自動的に上げる。ACRが高いのはGが強い証拠。',k:'指標 → ACR / 口コミ内容'},N:{w:'Nurture',j:'また来てもらう',q:'一度来たお客様が継続的に来てくれているか？',b:'口コミへの返信・メッセージ・次回提案がここに効く。',k:'指標 → ACR / 口コミ件数'},S:{w:'Share',j:'広めてもらう',q:'満足したお客様が口コミ・紹介で広めてくれているか？',b:'Gが強いほどSは自然に起きる。口コミ件数が増えると検索順位も上がる。',k:'指標 → 口コミ件数・評価点 / 紹介経由の新規客数'}};
+const V={blog_ng:[{h:'ブログを今週3本書く',d:'施術事例・季節トレンド・ビフォーアフターなど何でもOK。まず本数を増やすことが検索順位への最短ルート。',fk:'blog'},{h:'ブログタイトルに検索ワードを入れる',d:'「エリア名＋施術名」で書く。HPB内で検索されるワードにタイトルをはめ込む意識で。',fk:'blog'},{h:'週3本の投稿ルーティンを今週から作る',d:'曜日を決めて投稿する。内容より継続の方が検索順位には効く。',fk:'blog'}],blog_warn:[{h:'ブログ投稿を週5本ペースに上げる',d:'3〜5本から5本以上に安定させると検索でのヒット頻度が大幅に上がる。',fk:'blog'},{h:'既存ブログのタイトルを検索ワードに最適化する',d:'過去の記事でタイトルに検索ワードが入っていないものを修正する。',fk:'blog'}],style_ng:[{h:'スタイル写真を今週3枚以上追加する',d:'施術ごとに1枚撮る習慣をつける。写真タイトルにエリア名＋施術名を入れると露出が増える。',fk:'photo'},{h:'スタイル写真のカテゴリを分散させる',d:'カラー・カット・パーマ・トリートメントそれぞれで写真を増やす。',fk:'photo'}],style_warn:[{h:'スタイル写真を週6枚ペースに上げる',d:'毎日施術後に1〜2枚を習慣にする。写真タイトルにエリア名と施術名を入れて検索経由のクリックを狙う。',fk:'photo'},{h:'before/afterのスタイル写真を意識して撮る',d:'ビフォーアフターは最もクリックされる写真ジャンル。変化が大きい施術はimpressを生みやすい。',fk:'photo'}],l_ng:[{h:'HPBトップ写真を今週中に差し替える',d:'一番自信のある仕上がりショットに更新。暗い・古い・スタッフ集合写真は即交換。',fk:'L'},{h:'HPBのファーストビューを全面刷新する',d:'トップ写真・キャッチコピー・紹介文冒頭をセットで見直す。USP（受賞歴・認定等）を冒頭に必ず出す。',fk:'L'},{h:'サロン紹介文の冒頭1行を書き直す',d:'USPと得意メニューを最初の1文に入れる。最初の1文が離脱率を決める。',fk:'L'}],l_warn:[{h:'クーポン名をベネフィット型に変える',d:'「カット+カラー」→「透明感カラー×ダメージレス—艶髪フルカラー」のように、価格より"なりたい自分"で選ばれる設計に変える。',fk:'I'},{h:'HPBのトップ写真を季節に合わせて更新する',d:'写真が古くなると「更新されていないサロン」という印象を与える。月1回の差し替えを習慣にする。',fk:'L'}],wd_ng:[{h:'平日の予約を埋める施策を今週打つ',d:'平日限定クーポンを追加。平日に来やすい層向けの訴求を明示する。',fk:'I'},{h:'平日空き枠を「本日空きあり」で即席告知する',d:'平日の空き枠をブログ投稿で当日発信する。即予約につながりやすい。',fk:'blog'}],we_ng:[{h:'木金にブログ・スタイル写真を集中投稿する',d:'週末予約は木金の投稿が動かす。',fk:'blog'},{h:'土日向けのクーポン訴求を見直す',d:'土日に来たいお客様の取りこぼしが起きている可能性がある。',fk:'I'}],i_ng:[{h:'クーポンを3本以内に絞ってTOP固定する',d:'クーポンが多いと選べない。一番予約率の高い1本をTOPに固定し、他は非表示か下位へ。',fk:'I'},{h:'クーポン説明文を具体的なベネフィットで書き直す',d:'「このクーポンで予約すると何が変わるのか」を1文で書く。',fk:'I'}],n_ng:[{h:'口コミ依頼を会計時に全施術で統一する',d:'「よろしければ感想を残していただけると嬉しいです」を必ず一言添える。目標週6件。',fk:'N'},{h:'施術後にQRコードを渡す仕組みを作る',d:'口コミページへの導線をQRコードで見せると依頼しやすくなる。',fk:'N'}],n_warn:[{h:'口コミ全件に今週中に返信する',d:'未返信の口コミを全件対応する。返信はSEO効果と信頼感に直結。',fk:'N'},{h:'口コミの返信に次回来店を促す一言を入れる',d:'「次回は〇〇も試してみませんか」と返信に書く。',fk:'N'}],s_ng:[{h:'口コミへの返信でブランドトーンを統一する',d:'返信文が新規客への"第二の紹介文"になる。',fk:'N'},{h:'高評価の口コミをブログで紹介する',d:'お客様の言葉を引用したブログは信頼感が増す。',fk:'blog'}]};
+const IN=[k=>`「${k}フェーズ」が今週の弱点。他に手を出さず、まずここだけを動かす。`,k=>`数字が語っている——「${k}」で詰まっている。1点突破で来週の数字を変える。`,k=>`今週の答えは「${k}フェーズ」の改善だけ。集中することが最速。`,k=>`「${k}」が機能していない。アクションを絞って、今週1つだけ完璧に仕上げる。`];
+const IW=[k=>`全体的に機能している。「${k}フェーズ」をもう一段上げると来週の数字が変わる。`,k=>`あと一歩のところにいる。「${k}フェーズ」の微調整が次のステージへの鍵。`,k=>`「${k}」は惜しい状態。細かい精度を上げると数字に出てくる。`];
+const IO=['全フェーズ良好。この状態を維持しながら、数字の記録を続ける。','今週は各フェーズが正常に機能している。記録を積み上げることが来月の比較基準を作る。','弱いフェーズが見当たらない週。次の月号のデータと比較して、何が効いたかを言語化する。'];
+function pk(a){return a[Math.floor(Math.random()*a.length)];}
+function seoKw(){
+  const area=CFG.area||DEFAULT_CFG.area;
+  const menus=(CFG.menu||DEFAULT_CFG.menu).split(',').map(s=>s.trim()).filter(Boolean);
+  return menus.map(m=>`・${area} ${m}`).join('\n')+`\n・${area} 美容室\n・${area} ヘアサロン おすすめ`;
+}
+let aD=null,wdV='',weV='',blV='',stV='',lastR=null;
+let hist=[];try{hist=JSON.parse(localStorage.getItem('aligns2_hist')||'[]');}catch(e){}
+let leads=[];try{leads=JSON.parse(localStorage.getItem('aligns2_leads')||'[]');}catch(e){}
+
+function td(k){const b=document.getElementById('db');document.querySelectorAll('#pm .pmc').forEach((c,i)=>c.classList.toggle('on',['A','L','I','G','N','S'][i]===k&&aD!==k));if(aD===k){b.classList.remove('on');b.innerHTML='';aD=null;return;}aD=k;const d=PD[k];b.innerHTML=`<div class="dbl">${k} · ${d.w} — ${d.j}</div><div class="dbq">${d.q}</div><div class="dbb">${d.b}</div>${d.k?`<div class="dbk">${d.k}</div>`:''}`;b.classList.add('on');}
+function ss(el,id){document.querySelectorAll('#'+id+' .sg').forEach(s=>s.classList.remove('on'));el.classList.add('on');if(id==='seg-wd')wdV=el.textContent;else if(id==='seg-we')weV=el.textContent;else if(id==='seg-bl')blV=el.textContent;else if(id==='seg-st')stV=el.textContent;}
+function gN(id){const v=parseFloat(document.getElementById(id).value);return isNaN(v)?null:v;}
+function bkS(v){if(!v)return 'na';if(v.includes('満席'))return 'ok';if(v.includes('ほぼ'))return 'warn';return 'ng';}
+function blS(v){if(!v)return 'na';if(v.includes('5投稿以上'))return 'ok';if(v.includes('3〜5'))return 'warn';return 'ng';}
+function stS(v){if(!v)return 'na';if(v.includes('6'))return 'ok';if(v.includes('3〜5'))return 'warn';return 'ng';}
+
+function diag(){
+  saveCfgFromForm();
+  const benchCVR=DEFAULT_CFG.benchCVR,benchACR=DEFAULT_CFG.benchACR;
+  const nc=gN('nc'),rv=gN('rv'),cvr=gN('cvr'),acr=gN('acr'),ac=gN('acc');
+  if(nc===null&&rv===null&&cvr===null&&!blV&&!stV){alert('最低1つ数値を入力してください');return;}
+  const ph=[],ac2=[];
+  const bS=blS(blV),sS=stS(stV);
+  let aS='na';if(blV||stV){if(bS==='ng'||sS==='ng')aS='ng';else if(bS==='warn'||sS==='warn')aS='warn';else aS='ok';}
+  ph.push({k:'A',n:'知ってもらう',s:aS});
+  if(bS==='ng')ac2.push({ph:'A',p:'high',...pk(V.blog_ng),kw:seoKw()});
+  else if(bS==='warn')ac2.push({ph:'A',p:'mid',...pk(V.blog_warn),kw:seoKw()});
+  if(sS==='ng')ac2.push({ph:'A',p:'high',...pk(V.style_ng),kw:seoKw()});
+  else if(sS==='warn')ac2.push({ph:'A',p:'mid',...pk(V.style_warn),kw:seoKw()});
+  let lS='na';if(cvr!==null)lS=cvr>=benchCVR?'ok':cvr>=benchCVR-11.9?'warn':'ng';else if(nc!==null)lS=nc>=15?'ok':nc>=8?'warn':'ng';
+  ph.push({k:'L',n:'止まってもらう',s:lS});
+  if(lS==='ng')ac2.push({ph:'L',p:'high',...pk(V.l_ng)});
+  else if(lS==='warn')ac2.push({ph:'L',p:'mid',...pk(V.l_warn)});
+  const wdS=bkS(wdV),weS=bkS(weV);
+  let iS='na';if(wdV||weV){if(wdS==='ng'||weS==='ng')iS='ng';else if(wdS==='warn'||weS==='warn')iS='warn';else iS='ok';}else if(nc!==null)iS=nc>=20?'ok':nc>=10?'warn':'ng';
+  ph.push({k:'I',n:'予約してもらう',s:iS});
+  if(wdS==='ng'&&weS!=='ng')ac2.push({ph:'I',p:'high',...pk(V.wd_ng)});
+  else if(weS==='ng'&&wdS!=='ng')ac2.push({ph:'I',p:'high',...pk(V.we_ng)});
+  else if(iS==='ng')ac2.push({ph:'I',p:'high',...pk(V.i_ng)});
+  let gS='na';if(acr!==null)gS=acr>=benchACR?'ok':acr>=benchACR-1.5?'warn':'ng';
+  ph.push({k:'G',n:'体験してもらう',s:gS});
+  let nS='na';if(acr!==null)nS=acr>=benchACR?'ok':acr>=benchACR-1.5?'warn':'ng';else if(rv!==null)nS=rv>=6?'ok':rv>=3?'warn':'ng';
+  ph.push({k:'N',n:'また来てもらう',s:nS});
+  if(nS==='ng')ac2.push({ph:'N',p:'high',...pk(V.n_ng)});
+  else if(nS==='warn')ac2.push({ph:'N',p:'mid',...pk(V.n_warn)});
+  let sS2='na';if(rv!==null)sS2=rv>=6?'ok':rv>=3?'warn':'ng';
+  ph.push({k:'S',n:'広めてもらう',s:sS2});
+  if(sS2==='ng')ac2.push({ph:'S',p:'mid',...pk(V.s_ng)});
+
+  if(focus.size){
+    ac2.sort((a,b)=>{
+      const af=focus.has(a.ph)||focus.has(a.fk)?0:1;
+      const bf=focus.has(b.ph)||focus.has(b.fk)?0:1;
+      return af-bf;
+    });
+  }
+
+  const sl={ok:'◎ 良好',warn:'△ 要強化',ng:'× 要対策',na:'— 未入力'};
+  document.getElementById('pg').innerHTML=ph.map(p=>`<div class="ph ${p.s}"><div class="phl">${p.k}</div><div class="phn">${p.n}</div><div class="phs">${sl[p.s]}</div></div>`).join('');
+  const ngP=ph.filter(p=>p.s==='ng'),wnP=ph.filter(p=>p.s==='warn');
+  let ins=ngP.length?pk(IN)(ngP[0].k+'（'+ngP[0].n+'）'):wnP.length?pk(IW)(wnP[0].k+'（'+wnP[0].n+'）'):pk(IO);
+  if(wdV&&weV&&bkS(wdV)!==bkS(weV))ins+=' 平日と土日で予約差がある——曜日別に訴求を変えることが次の打ち手。';
+  document.getElementById('ins').textContent=ins;
+  const cg=cvr!==null?(benchCVR-cvr).toFixed(1):null;
+  document.getElementById('kr').innerHTML=[{l:'HPBアクセス',v:ac!==null?ac.toLocaleString()+'PV':'—',t:'na',n:ac!==null?'月初〜当日累計':''},{l:'CVR',v:cvr!==null?cvr+'%':'—',t:cvr===null?'na':cvr>=benchCVR?'ok':cvr>=benchCVR-11.9?'warn':'ng',n:cvr!==null?`業界${benchCVR}%（差${cg}pt）`:'入力で精度UP'},{l:'ACR',v:acr!==null?acr+'%':'—',t:acr===null?'na':acr>=benchACR?'ok':acr>=benchACR-1.5?'warn':'ng',n:acr!==null?`業界${benchACR}%（${acr>=benchACR?'+':''}${(acr-benchACR).toFixed(1)}pt）`:'入力で精度UP'},{l:'新規客数',v:nc!==null?nc+'名':'—',t:nc===null?'na':nc>=20?'ok':nc>=10?'warn':'ng',n:nc!==null?(nc>=20?'目標達成':`目標まで${20-nc}名`):''}].map(k=>`<div class="km"><div class="kml">${k.l}</div><div class="kmv">${k.v}</div><div class="kmt ${k.t}">${k.n}</div></div>`).join('');
+  document.getElementById('al').innerHTML=!ac2.length?'<div style="font-size:13px;color:var(--ink2);padding:8px 0">全フェーズ良好。現状維持と記録継続。</div>':ac2.map((a,i)=>{
+    const isFocus=focus.has(a.ph)||focus.has(a.fk);
+    return `<div class="ai"><div class="an">${i+1}</div><div style="flex:1"><div class="ap">${a.ph} · ${PD[a.ph].j}</div><div class="ah">${a.h}<span class="${a.p==='high'?'th':'tm'}">${a.p==='high'?'今週中':'来週まで'}</span>${isFocus?'<span class="fg">フォーカス対象</span>':''}</div><div class="ad">${a.d}</div>${a.kw?`<div class="kw"><div class="kwl">SEO · 使うべきキーワード</div>${a.kw}</div>`:''}</div></div>`;
+  }).join('');
+  const d=new Date(),ds=d.getFullYear()+'年'+(d.getMonth()+1)+'月'+d.getDate()+'日';
+  const targetName=CFG.name||DEFAULT_CFG.name;
+  let rep=`【ALIGNS PRO 診断レポート】${ds}\n対象：${targetName}（${CFG.area||DEFAULT_CFG.area}）\nモード：${mode==='self'?'自店診断':'クライアント提案'}\n\n■ 今月の数値（月初〜当日累計）\n`;
+  if(ac!==null)rep+=`・HPBアクセス数：${ac.toLocaleString()}PV\n`;
+  if(cvr!==null)rep+=`・CVR：${cvr}%（業界${benchCVR}%、差${cg}pt）\n`;
+  if(acr!==null)rep+=`・ACR（再来率）：${acr}%（業界${benchACR}%）\n`;
+  if(nc!==null)rep+=`・新規客数：${nc}名（目標20名/週）\n`;
+  if(rv!==null)rep+=`・口コミ件数：${rv}件（目標6件/週）\n`;
+  if(blV)rep+=`・ブログ投稿：${blV}\n`;if(stV)rep+=`・スタイル写真：${stV}\n`;
+  if(wdV)rep+=`・平日予約：${wdV}\n`;if(weV)rep+=`・土日予約：${weV}\n`;
+  rep+=`\n■ フェーズ診断\n`;
+  ph.filter(p=>p.s!=='na').forEach(p=>{rep+=`・${p.k}（${p.n}）：${sl[p.s]}\n`;});
+  rep+=`\n■ 優先アクション（${ac2.length}件）\n`;
+  ac2.forEach((a,i)=>{rep+=`${i+1}. ${a.h}（${a.p==='high'?'今週中':'来週まで'}）\n`;});
+  document.getElementById('rb').textContent=rep;
+  lastR={date:ds,name:targetName,area:CFG.area||DEFAULT_CFG.area,mode,phases:ph,insight:ins,report:rep,cvr,acr,nc,rv};
+  document.getElementById('svm').style.display='none';
+  document.getElementById('deepRow').style.display=depth==='deep'?'flex':'none';
+  document.getElementById('res').classList.add('on');
+  document.getElementById('res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function openDeep(){
+  if(!lastR)return;
+  const focusList=[...focus].join('、')||'指定なし';
+  const prompt=`あなたはHPB(ホットペッパービューティー)集客に精通した美容室コンサルタントです。以下は「${lastR.name}」（${lastR.area}）のALIGNS診断結果です。ALIGNSの6フェーズ（Attention/Landing/Intention/Gain/Nurture/Share）のフレームワークに沿って、100項目相当の詳細チェックと、優先順位付きの改善提案書を作成してください。\n\n■診断モード：${lastR.mode==='self'?'自店診断':'クライアント提案'}\n■フォーカス希望領域：${focusList}\n\n${lastR.report}\n\n出力形式：\n1. フェーズ別の詳細診断（各フェーズについて現状・課題・根拠を記述）\n2. 優先度付きアクションプラン（今週中／今月中／来月以降の3段階）\n3. HPBのブログ・スタイルページ・クーポンの具体的な改善文案\n4. まとめ（クライアントに提示する場合は提案書の体裁で）`;
+  const url='https://claude.ai/new?q='+encodeURIComponent(prompt);
+  window.open(url,'_blank');
+}
+
+function cpR(){navigator.clipboard.writeText(document.getElementById('rb').textContent).catch(()=>{});const b=document.querySelectorAll('#printArea .cb')[0];if(b){const t=b.textContent;b.textContent='コピーしました';setTimeout(()=>b.textContent=t,2000);}}
+function svR(){if(!lastR)return;hist.unshift(lastR);if(hist.length>50)hist=hist.slice(0,50);try{localStorage.setItem('aligns2_hist',JSON.stringify(hist));}catch(e){}const m=document.getElementById('svm');m.style.display='block';setTimeout(()=>m.style.display='none',2500);rHist();}
+function rHist(){const el=document.getElementById('hl');const sl={ok:'◎ 良好',warn:'△ 要強化',ng:'× 要対策'};if(!hist.length){el.innerHTML='<div class="eh">診断を保存すると、ここに記録が積み上がっていきます</div>';return;}el.innerHTML=hist.map((h,i)=>`<div class="hi"><div class="hi-d"><span>${h.date} · ${h.name||''}${h.mode?'（'+(h.mode==='self'?'自店':'クライアント')+'）':''}</span><button class="db2" onclick="dlH(${i})">削除</button></div><div class="hi-p">${h.phases.filter(p=>p.s!=='na').map(p=>`<span class="hp ${p.s}">${p.k} ${sl[p.s]||'—'}</span>`).join('')}</div><div class="hi-i">${h.insight}</div><div style="font-size:10px;color:var(--ink3);margin-top:6px">${[h.cvr?`CVR ${h.cvr}%`:'',h.acr?`ACR ${h.acr}%`:'',h.nc?`新規 ${h.nc}名`:''].filter(Boolean).join(' · ')}</div></div>`).join('');}
+function dlH(i){hist.splice(i,1);try{localStorage.setItem('aligns2_hist',JSON.stringify(hist));}catch(e){}rHist();}
+
+// ── 競合比較 ──
+function bar(labelA,labelB,a,b,cap,fmt){
+  const pa=Math.min((a||0)/cap*100,100),pb=Math.min((b||0)/cap*100,100);
+  const better=a>=b;
+  return `<div class="vr"><div class="vl">${labelA}</div><div class="vb">
+    <div class="vbw"><div class="vt">自店</div><div class="vg"><div class="vf vs" style="width:${pa}%"></div></div><div class="vv" style="color:${better?'var(--ok-d)':'#A32D2D'}">${fmt(a)}</div></div>
+    <div class="vbw"><div class="vt">${labelB}</div><div class="vg"><div class="vf va" style="width:${pb}%"></div></div><div class="vv" style="color:var(--ink2)">${fmt(b)}</div></div>
+  </div></div>`;
+}
+function compare(){
+  const g=id=>parseFloat(document.getElementById(id).value)||0;
+  const cvrA=g('cp-cvr-a'),cvrB=g('cp-cvr-b'),acrA=g('cp-acr-a'),acrB=g('cp-acr-b'),pvA=g('cp-pv-a'),pvB=g('cp-pv-b'),cpA=g('cp-cp-a'),cpB=g('cp-cp-b');
+  const rivalName=document.getElementById('cp-name').value.trim()||'競合店';
+  const pvCap=Math.max(pvA,pvB,1),cpCap=Math.max(cpA,cpB,5);
+  document.getElementById('cpBars').innerHTML=
+    bar('CVR',rivalName,cvrA,cvrB,60,v=>v+'%')+
+    bar('ACR',rivalName,acrA,acrB,20,v=>v+'%')+
+    bar('月間PV',rivalName,pvA,pvB,pvCap,v=>v.toLocaleString())+
+    bar('クーポン数',rivalName,cpA,cpB,cpCap,v=>v+'本');
+  const diffs=[];
+  if(cvrA||cvrB)diffs.push(`CVRは${rivalName}より${(cvrA-cvrB>=0?'+':'')+(cvrA-cvrB).toFixed(1)}pt`);
+  if(acrA||acrB)diffs.push(`ACRは${rivalName}より${(acrA-acrB>=0?'+':'')+(acrA-acrB).toFixed(1)}pt`);
+  if(pvA||pvB)diffs.push(`月間PVは${rivalName}の${pvB?Math.round(pvA/pvB*100):0}%`);
+  let ins=diffs.length?diffs.join('、')+'。':'数値を入力すると比較インサイトが表示されます。';
+  if(cvrA<cvrB)ins+=' ファーストビュー・クーポン訴求の見直しが最優先。';
+  else if(acrA<acrB)ins+=' 再来率強化（口コミ返信・次回提案）が優先課題。';
+  document.getElementById('cpIns').textContent=ins;
+  document.getElementById('cpRes').classList.add('on');
+}
+
+// ── リード獲得 ──
+function rLeads(){
+  const el=document.getElementById('ll');
+  if(!leads.length){el.innerHTML='<div class="eh">まだリードがありません。診断結果の下にある相談フォームから送信されると、ここに記録されます。</div>';return;}
+  el.innerHTML=leads.map((l,i)=>`<div class="lrow"><div class="lrow-t"><div class="lrow-n">${l.name}${l.salon?'（'+l.salon+'）':''}</div><div class="lrow-d">${l.date}<button class="db2" onclick="dlLead(${i})">削除</button></div></div><div class="lrow-m">連絡方法：${l.method} / 連絡先：${l.contact}${l.note?'<br>メモ：'+l.note:''}</div></div>`).join('');
+}
+function dlLead(i){leads.splice(i,1);try{localStorage.setItem('aligns2_leads',JSON.stringify(leads));}catch(e){}rLeads();}
+function submitLead(){
+  const name=document.getElementById('ld-name').value.trim();
+  const contact=document.getElementById('ld-contact').value.trim();
+  if(!name||!contact){alert('お名前と連絡先を入力してください');return;}
+  const lead={date:new Date().toLocaleString('ja-JP'),name,salon:document.getElementById('ld-salon').value.trim(),method:document.getElementById('ld-method').value,contact,note:document.getElementById('ld-note').value.trim(),diagName:lastR?lastR.name:'',diagInsight:lastR?lastR.insight:''};
+  leads.unshift(lead);
+  try{localStorage.setItem('aligns2_leads',JSON.stringify(leads));}catch(e){}
+  rLeads();
+  document.getElementById('leadok').classList.add('on');
+  ['ld-name','ld-salon','ld-contact','ld-note'].forEach(id=>document.getElementById(id).value='');
+}
+function mailLead(){
+  const name=document.getElementById('ld-name').value.trim()||'(未入力)';
+  const salon=document.getElementById('ld-salon').value.trim()||(lastR?lastR.name:'');
+  const contact=document.getElementById('ld-contact').value.trim()||'(未入力)';
+  const method=document.getElementById('ld-method').value;
+  const note=document.getElementById('ld-note').value.trim();
+  const body=`お名前：${name}\nサロン名：${salon}\n連絡方法：${method}\n連絡先：${contact}\nご相談内容：${note}\n\n--- 診断サマリー ---\n${lastR?lastR.report:'(未診断)'}`;
+  window.location.href=`mailto:${CFG.leadEmail}?subject=${encodeURIComponent('【ALIGNS PRO】相談申し込み：'+salon)}&body=${encodeURIComponent(body)}`;
+}
+function exportCSV(){
+  if(!leads.length){alert('エクスポートできるリードがありません');return;}
+  const headers=['日時','名前','サロン名','連絡方法','連絡先','メモ','診断対象','診断インサイト'];
+  const rows=leads.map(l=>[l.date,l.name,l.salon,l.method,l.contact,l.note,l.diagName,l.diagInsight]);
+  const csv=[headers,...rows].map(r=>r.map(c=>`"${(c||'').toString().replace(/"/g,'""')}"`).join(',')).join('\n');
+  const blob=new Blob(['﻿'+csv],{type:'text/csv;charset=utf-8;'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='aligns_leads_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();
+}
+
+function sw(n){const nm=['i','c','h','l','a'];nm.forEach((m,i)=>{document.querySelectorAll('.tab')[i].classList.toggle('on',m===n);document.getElementById('s-'+m).classList.toggle('on',m===n);});if(n==='h')rHist();if(n==='l')rLeads();}
+const d=new Date();
+document.getElementById('tlbl').textContent=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0');
+loadCfgToForm();
+setMode('self');
+rHist();
+rLeads();
+</script>
+</body>
+</html>
