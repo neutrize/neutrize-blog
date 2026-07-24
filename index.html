@@ -767,9 +767,9 @@ const DEMO = {
     tags: 'ミニボブ 透け前髪 切りっぱなし 前髪あり ボブ 軽め',
     hashtags: ['ミニボブ','切りっぱなしボブ','前髪ありボブ','透け前髪','ナチュラルヘア','首元すっきり','簡単スタイリング','岡山美容室','NEUTRIZE']
   },
-  review: '口コミをお寄せいただきありがとうございます。担当スタイリストに喜びを伝えます。またのご来店を心よりお待ちしております。
+  review: `口コミをお寄せいただきありがとうございます。担当スタイリストに喜びを伝えます。またのご来店を心よりお待ちしております。
 
-NEUTRIZE',
+NEUTRIZE`,
   seo: {
     titles: ['岡山でくせ毛を活かすカットができる美容室3選','岡山のくせ毛専門カット｜広がりを抑えるコツ','くせ毛で悩む方へ｜岡山NEUTRIZEの髪質改善'],
     body: `# 岡山でくせ毛を活かすカットができる美容室3選
@@ -827,7 +827,7 @@ async function callAPI(system, messages) {
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
-    body: JSON.stringify({ model: 'claude-sonnet-4-6', max_tokens: 1500, system, messages })
+    body: JSON.stringify({ model: 'claude-sonnet-5', max_tokens: 1500, system, messages })
   });
   const data = await res.json();
   if (data.error) throw new Error(data.error.message);
