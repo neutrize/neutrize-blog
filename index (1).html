@@ -303,6 +303,7 @@ textarea{resize:none;line-height:1.6}
     <button class="tab on"  onclick="swTab('style',this)">スタイルブログ</button>
     <button class="tab"     onclick="swTab('seo',this)">SEOブログ</button>
     <button class="tab"     onclick="swTab('stylepage',this)">スタイルページ</button>
+    <button class="tab"     onclick="swTab('coupon',this)">クーポン</button>
     <button class="tab"     onclick="swTab('review',this)">口コミ返信</button>
     <button class="tab"     onclick="swTab('tips',this)">ヒント</button>
   </div>
@@ -473,6 +474,72 @@ textarea{resize:none;line-height:1.6}
       <div class="out-meta" id="meta-sp"></div>
     </div>
     <button class="hpb-btn" id="hpb-sp" onclick="openHPBSP()">HPBのスタイルページを開く</button>
+    <div class="sb"></div>
+  </div>
+
+  <!-- ── COUPON TAB ── -->
+  <div class="tc" id="tc-coupon">
+    <div class="info-box">HPBクーポンの文字数制限：<em>クーポン名 36字以内・説明文 90字以内</em><br>「平日14:00〜」「平日18:00〜」の時間限定クーポンを<em>2本まとめて</em>生成します。</div>
+    <div class="r2">
+      <div class="fld">
+        <label class="lb">メニュー</label>
+        <select id="cp-menu">
+          <option value="">選択</option>
+          <option>カット</option><option>透明感カラー</option>
+          <option>高濃度水素カラー</option><option>カット＋カラー</option>
+          <option>髪質改善トリートメント</option><option>縮毛矯正</option>
+          <option>oggi otto</option><option>パーマ</option>
+        </select>
+      </div>
+      <div class="fld">
+        <label class="lb">割引内容</label>
+        <select id="cp-discount">
+          <option>20%OFF</option><option>15%OFF</option><option>10%OFF</option>
+          <option>¥2,000引き</option><option>¥1,000引き</option>
+        </select>
+      </div>
+    </div>
+    <div class="fld">
+      <label class="lb">アピールポイント（任意）</label>
+      <textarea id="cp-ap" rows="2" placeholder="例：平日夜も遅くまで営業、空いた時間にゆったり"></textarea>
+    </div>
+    <div class="lbar" id="lb-cp"><div class="lb-fill"></div></div>
+    <button class="gen-btn" id="btn-cp" onclick="genCoupon()">平日時間限定クーポンを2本生成</button>
+
+    <div class="out-box" id="out-cp">
+      <div class="out-hd">
+        <div class="out-eye">① 平日14:00〜限定クーポン</div>
+        <div class="out-acts"><button class="obtn" onclick="regenCoupon()">再生成</button></div>
+      </div>
+      <div class="fld" style="margin-bottom:9px">
+        <div class="char-row"><span class="lb" style="margin-bottom:0">クーポン名</span><span class="char-cnt" id="cp-cnt-name1">0/36</span></div>
+        <div class="body-txt" id="body-cp-name1" contenteditable="true" oninput="liveCount('body-cp-name1','cp-cnt-name1',36)" style="background:var(--sf2);border:.5px solid var(--b);border-radius:var(--r);padding:10px 12px"></div>
+      </div>
+      <button class="obtn" onclick="copyElCount('body-cp-name1','cp-cnt-name1',36)" style="margin-bottom:10px">クーポン名をコピー</button>
+      <div class="fld" style="margin-bottom:5px">
+        <div class="char-row"><span class="lb" style="margin-bottom:0">説明文</span><span class="char-cnt" id="cp-cnt-desc1">0/90</span></div>
+        <div class="body-txt" id="body-cp-desc1" contenteditable="true" oninput="liveCount('body-cp-desc1','cp-cnt-desc1',90)" style="background:var(--sf2);border:.5px solid var(--b);border-radius:var(--r);padding:10px 12px"></div>
+      </div>
+      <button class="obtn" onclick="copyElCount('body-cp-desc1','cp-cnt-desc1',90)">説明文をコピー</button>
+
+      <div class="dvd"></div>
+
+      <div class="out-hd">
+        <div class="out-eye">② 平日18:00〜限定クーポン</div>
+      </div>
+      <div class="fld" style="margin-bottom:9px">
+        <div class="char-row"><span class="lb" style="margin-bottom:0">クーポン名</span><span class="char-cnt" id="cp-cnt-name2">0/36</span></div>
+        <div class="body-txt" id="body-cp-name2" contenteditable="true" oninput="liveCount('body-cp-name2','cp-cnt-name2',36)" style="background:var(--sf2);border:.5px solid var(--b);border-radius:var(--r);padding:10px 12px"></div>
+      </div>
+      <button class="obtn" onclick="copyElCount('body-cp-name2','cp-cnt-name2',36)" style="margin-bottom:10px">クーポン名をコピー</button>
+      <div class="fld" style="margin-bottom:5px">
+        <div class="char-row"><span class="lb" style="margin-bottom:0">説明文</span><span class="char-cnt" id="cp-cnt-desc2">0/90</span></div>
+        <div class="body-txt" id="body-cp-desc2" contenteditable="true" oninput="liveCount('body-cp-desc2','cp-cnt-desc2',90)" style="background:var(--sf2);border:.5px solid var(--b);border-radius:var(--r);padding:10px 12px"></div>
+      </div>
+      <button class="obtn" onclick="copyElCount('body-cp-desc2','cp-cnt-desc2',90)">説明文をコピー</button>
+      <div class="out-meta" id="meta-cp"></div>
+    </div>
+    <button class="hpb-btn" id="hpb-cp" onclick="openHPBCoupon()">HPBのクーポン管理を開く</button>
     <div class="sb"></div>
   </div>
 
@@ -695,11 +762,12 @@ const SYS_BLOG = SYS + '\n- ブログ末尾は「ご予約はホットペッパ�
 
 const HPB_URL = 'https://beauty.hotpepper.jp/slnH000183650/blog/';
 const HPB_REV_URL = 'https://beauty.hotpepper.jp/slnH000183650/';
+const HPB_COUPON_URL = 'https://beauty.hotpepper.jp/slnH000183650/coupon/';
 const TYPE_LBL = {'how-to':'Howto記事','column':'お悩みコラム','local':'エリア集客','menu':'メニュー紹介','season':'季節トレンド','faq':'FAQ記事'};
 
 let stylist = null, imgs = [], imgsSP = [], blogType = 'how-to';
 let starRating = 5, revCat = 'positive';
-let lastStyleP = null, lastSPP = null, lastSeoP = null, lastRevP = null;
+let lastStyleP = null, lastSPP = null, lastSeoP = null, lastRevP = null, lastCpP = null;
 let detIdx = null;
 
 // ── NAV ──
@@ -767,9 +835,13 @@ const DEMO = {
     tags: 'ミニボブ 透け前髪 切りっぱなし 前髪あり ボブ 軽め',
     hashtags: ['ミニボブ','切りっぱなしボブ','前髪ありボブ','透け前髪','ナチュラルヘア','首元すっきり','簡単スタイリング','岡山美容室','NEUTRIZE']
   },
-  review: '口コミをお寄せいただきありがとうございます。担当スタイリストに喜びを伝えます。またのご来店を心よりお待ちしております。
-
-NEUTRIZE',
+  review: '口コミをお寄せいただきありがとうございます。担当スタイリストに喜びを伝えます。またのご来店を心よりお待ちしております。\n\nNEUTRIZE',
+  coupon: {
+    name1: '【平日14時〜限定】カット＋透明感カラー20%OFF',
+    desc1: '平日14時以降のご来店限定。似合わせカットと艶やかな透明感カラーをお得な価格で。空いた時間にゆったりお過ごしいただけます。',
+    name2: '【平日18時〜限定】カット＋透明感カラー20%OFF',
+    desc2: 'お仕事帰りの平日18時以降にご利用いただけるナイトクーポン。夜遅くまでご案内可能なので、忙しい日々の合間にもお立ち寄りください。'
+  },
   seo: {
     titles: ['岡山でくせ毛を活かすカットができる美容室3選','岡山のくせ毛専門カット｜広がりを抑えるコツ','くせ毛で悩む方へ｜岡山NEUTRIZEの髪質改善'],
     body: `# 岡山でくせ毛を活かすカットができる美容室3選
@@ -884,6 +956,10 @@ function copyElCount(bodyId, countId, max) {
 function openHPBSP() {
   toast('HPBのスタイルページを開きます');
   setTimeout(() => window.open('https://beauty.hotpepper.jp/slnH000183650/', '_blank'), 600);
+}
+function openHPBCoupon() {
+  toast('HPBのクーポン管理を開きます');
+  setTimeout(() => window.open(HPB_COUPON_URL, '_blank'), 600);
 }
 
 // ── EDIT TOGGLE ──
@@ -1059,6 +1135,71 @@ function parseStylePage(raw) {
   return { titles: titles.slice(0,3), comment: comment.slice(0,120), tags: tags.slice(0,50), hashtags: hashtags.slice(0,10) };
 }
 
+// ── GEN COUPON ──
+async function genCoupon() {
+  const p = { menu: document.getElementById('cp-menu').value, discount: document.getElementById('cp-discount').value, ap: document.getElementById('cp-ap').value };
+  lastCpP = p; await runCoupon(p);
+}
+async function regenCoupon() { if (lastCpP) await runCoupon(lastCpP); }
+async function runCoupon(p) {
+  const st = S[stylist];
+  setLoading('cp', true);
+  const prompt = `HPBのクーポンを2本作成してください。どちらも平日限定の時間帯限定クーポンです。
+メニュー：${p.menu||'カット＋カラー'} / 割引内容：${p.discount} / アピール：${p.ap||'なし'}
+
+・クーポン1：平日14:00〜のご来店限定
+・クーポン2：平日18:00〜のご来店限定（お仕事帰り想定）
+
+必ず以下の形式で出力してください：
+SLOT1_NAME
+[クーポン1のクーポン名。必ず36字以内。「平日14時〜限定」等の条件を含める]
+SLOT1_DESC
+[クーポン1の説明文。必ず90字以内。平日14時以降限定である旨と魅力を伝える]
+SLOT2_NAME
+[クーポン2のクーポン名。必ず36字以内。「平日18時〜限定」等の条件を含める]
+SLOT2_DESC
+[クーポン2の説明文。必ず90字以内。平日18時以降限定である旨と魅力を伝える]`;
+  try {
+    const raw = await callAPI(SYS + `\n\n【文体】${st.tone}`, [{ role: 'user', content: prompt }]);
+    const c = parseCoupon(raw);
+    fillCoupon(c);
+    document.getElementById('meta-cp').innerHTML = `<span class="m-tag ${st.bg}">${st.nm}</span><span class="m-tag">クーポン</span>`;
+    document.getElementById('out-cp').classList.add('on');
+    document.getElementById('hpb-cp').classList.add('on');
+    saveHist({ type: 'coupon', typeLabel: 'クーポン', stylist, styleName: st.nm, styleBg: st.bg, title: c.name1, body: `${c.name1}\n${c.desc1}\n\n${c.name2}\n${c.desc2}`, chars: c.desc1.length + c.desc2.length, date: new Date().toISOString() });
+  } catch(e) {
+    if (e.message === 'demo') {
+      fillCoupon(DEMO.coupon);
+      document.getElementById('meta-cp').innerHTML = `<span class="m-tag ${S[stylist].bg}">${S[stylist].nm}</span><span class="m-tag">デモ</span>`;
+      document.getElementById('out-cp').classList.add('on');
+      document.getElementById('hpb-cp').classList.add('on');
+    } else if (e.message !== 'no key') toast('エラー: ' + e.message);
+  }
+  setLoading('cp', false);
+}
+function fillCoupon(c) {
+  document.getElementById('body-cp-name1').textContent = c.name1; liveCount('body-cp-name1','cp-cnt-name1',36);
+  document.getElementById('body-cp-desc1').textContent = c.desc1; liveCount('body-cp-desc1','cp-cnt-desc1',90);
+  document.getElementById('body-cp-name2').textContent = c.name2; liveCount('body-cp-name2','cp-cnt-name2',36);
+  document.getElementById('body-cp-desc2').textContent = c.desc2; liveCount('body-cp-desc2','cp-cnt-desc2',90);
+}
+function parseCoupon(raw) {
+  const lines = raw.split('\n');
+  const out = { name1:'', desc1:'', name2:'', desc2:'' };
+  let mode = '';
+  for (const ln of lines) {
+    const t = ln.trim();
+    if (/^SLOT1_NAME/.test(t)) { mode = 'name1'; continue; }
+    if (/^SLOT1_DESC/.test(t)) { mode = 'desc1'; continue; }
+    if (/^SLOT2_NAME/.test(t)) { mode = 'name2'; continue; }
+    if (/^SLOT2_DESC/.test(t)) { mode = 'desc2'; continue; }
+    if (mode && t) out[mode] += (out[mode] ? '\n' : '') + t;
+  }
+  out.name1 = out.name1.slice(0,36); out.desc1 = out.desc1.slice(0,90);
+  out.name2 = out.name2.slice(0,36); out.desc2 = out.desc2.slice(0,90);
+  return out;
+}
+
 // ── GEN REVIEW REPLY ──
 async function genReview() {
   const revText = document.getElementById('rev-text').value.trim();
@@ -1143,7 +1284,7 @@ BODY
 }
 
 // ── LOADING ──
-const BTN_LABELS = { style: 'スタイル紹介ブログを生成 — タイトル3案＋本文', sp: 'スタイルページ用テキストを一括生成', rev: '返信文を生成', seo: 'SEOブログを生成' };
+const BTN_LABELS = { style: 'スタイル紹介ブログを生成 — タイトル3案＋本文', sp: 'スタイルページ用テキストを一括生成', rev: '返信文を生成', seo: 'SEOブログを生成', cp: '平日時間限定クーポンを2本生成' };
 function setLoading(id, on) {
   document.getElementById('lb-' + id).classList.toggle('on', on);
   const btn = document.getElementById('btn-' + id);
